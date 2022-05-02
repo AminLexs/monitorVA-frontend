@@ -1,0 +1,44 @@
+// colors
+
+$white: #ffffff;
+$darkBlue: #2c3d50;
+$mediumBlue: #808b96;
+$mediumBlueAlternative: #959ea7;
+$lightBlue: #f4f5f6;
+$orange: #ff8000;
+$lightOrange: #fff2e6;
+$darkenGradientOrange: linear-gradient(154.9deg, #f1963b 19.05%, #f17a02 85.37%);
+$gradientOrange: linear-gradient(128.02deg, #ffa954 19.05%, #ff8000 85.37%);
+$green: #00b67a;
+$mediumGrey: #c3c8cd;
+$lightRed: #ffeae5;
+$mediumRed: #ff2e00;
+$mediumOrange: #ffe6cc;
+$alternativeMediumOrange: #ffd9b3;
+$lightGreen: #ebf9f4;
+$darkGrey: #687a8c;
+
+// shadows
+
+$shadowOrange: 0px 4.25707px 6.88378px rgba(255, 128, 0, 0.22), 0px 11.7703px 19.0328px rgba(255, 128, 0, 0.14335),
+  0px 28.3382px 45.8236px rgba(255, 128, 0, 0.11), 0px 94px 152px rgba(255, 128, 0, 0.0766505);
+$shadowMediumBlue: 0px 2.78659px 5.31834px rgba(44, 61, 80, 0.07), 0px 5.66679px 11.3396px rgba(44, 61, 80, 0.0589391),
+  0px 9.71848px 18.7755px rgba(44, 61, 80, 0.0502519), 0px 17.4254px 29.0776px rgba(44, 61, 80, 0.0423627),
+  0px 35.8633px 45.7244px rgba(44, 61, 80, 0.0340255), 0px 100px 80px rgba(44, 61, 80, 0.0232689);
+
+// text colors
+
+$textColorPrimary: rgba(#2b3d50, 0.9);
+$textColorSecondary: #070a0d;
+$textColorAlternative: rgba(#687a8c, 0.8);
+
+// font-family
+
+$regularFontWeight: 400;
+$mediumFontWeight: 500;
+$semiBoldWeight: 600;
+$boldFontWeight: 700;
+$normalFontStyle: 'normal';
+
+$fontFamilyPrimary: 'Roboto', sans-serif;
+$fontFamilySecondary: 'Roboto Slab', sans-serif;

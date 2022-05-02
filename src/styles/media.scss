@@ -1,0 +1,18 @@
+$MEDIA: (
+  maxMobile: 425px,
+  minTablet: 426px,
+  middleTablet: 565px,
+  maxTablet: 758px,
+);
+
+@mixin maxMobile {
+  @media (max-width: map_get($MEDIA, maxMobile)) {
+    @content;
+  }
+}
+
+@mixin maxTablet {
+  @media (max-width: map_get($MEDIA, maxTablet)) {
+    @content;
+  }
+}
