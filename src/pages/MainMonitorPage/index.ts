@@ -1,1 +1,1 @@
-export { default } from './MainMonitorPage';
+export { default } from './DashboardPage';

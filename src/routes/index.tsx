@@ -6,7 +6,7 @@ import MainMonitorPage from 'pages/MainMonitorPage';
 
 export default () => {
   return (
-    <Main >
+    <Main>
       <Routes>
         <Route path="/" element={<AuthPage />} />
         <Route path="/monitor" element={<MainMonitorPage />} />
