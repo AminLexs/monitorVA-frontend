@@ -11,13 +11,12 @@ const firebaseConfig = {
 };
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-let token = '';
-
+let userObject: any = null;
 auth.onAuthStateChanged(async (user: any) => {
   if (user) {
-    token = await user.getIdToken();
+    userObject = user;
   } else {
-    token = '';
+    userObject = null;
   }
 });
 
@@ -31,18 +30,22 @@ export default class AccountApi {
   public async Authenticate(email: string, password: string) {
     if (validateEmail(email) && password.length > 5) {
       try {
-        await signInWithEmailAndPassword(auth, email, password).then(async (userCred) => {
-          token = await userCred.user.getIdToken();
-        });
+        await signInWithEmailAndPassword(auth, email, password);
       } catch (err: any) {
         console.error(err);
         alert(err.message);
       }
     }
   }
+
   public async GetToken(user: any) {
-    return await user.getIdToken();
+    return user.getIdToken();
   }
+
+  public GetUser() {
+    return userObject;
+  }
+
   public async LogOut() {
     signOut(auth);
   }

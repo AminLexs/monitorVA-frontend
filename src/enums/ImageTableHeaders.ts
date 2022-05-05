@@ -1,3 +1,6 @@
 export enum ImageTableHeaders {
-  ContainersList = 'ContainersList',
+  Name = 'name',
+  Version = 'version',
+  Size = 'size',
+  Created = 'created',
 }

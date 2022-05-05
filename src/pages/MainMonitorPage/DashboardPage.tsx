@@ -8,12 +8,17 @@ import { RootState } from 'handlers';
 import { DashboardStep } from 'enums/DashboardStep';
 
 import ContainersList from './steps/ContainersList';
-import { accountApi } from '../../thunks';
+import ImagesList from './steps/ImagesList';
+import ContainersMonitor from './steps/ContainersMonitor';
 
 const getPageByStep = (step: DashboardStep | null) => {
   switch (step) {
     case DashboardStep.ContainersList:
       return <ContainersList />;
+    case DashboardStep.ImageList:
+      return <ImagesList />;
+    case DashboardStep.ContainersMonitoring:
+      return <ContainersMonitor />;
     default:
       return <ContainersList />;
   }
