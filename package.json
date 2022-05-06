@@ -9,8 +9,6 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.4.1",
     "@types/node": "^16.11.33",
-    "@types/react": "^18.0.8",
-    "@types/react-dom": "^18.0.3",
     "chart.js": "^3.7.1",
     "chartjs-adapter-luxon": "^1.1.0",
     "chartjs-plugin-streaming": "^2.0.0",
@@ -27,6 +25,7 @@
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-select": "^5.3.1",
     "reactjs-popup": "^2.0.5",
     "sass-loader": "^12.6.0",
     "ts-loader": "^9.3.0",
@@ -34,7 +33,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start -dev",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -60,8 +59,8 @@
   "devDependencies": {
     "@types/materialize-css": "^1.0.11",
     "@types/node": "^16.11.11",
-    "@types/react": "^17.0.39",
-    "@types/react-dom": "^17.0.11",
+    "@types/react": "^17.0.44",
+    "@types/react-dom": "^17.0.16",
     "@types/react-helmet": "^6.1.5",
     "@types/react-phone-number-input": "^3.0.13",
     "@types/react-transition-group": "^4.4.4",

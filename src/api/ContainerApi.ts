@@ -1,4 +1,5 @@
 import { accountApi } from 'thunks';
+import { CreateContainerForm } from 'handlers/createContainerForm';
 
 import Api, { FetchMethodType } from './Api';
 // interface ContainerData {
@@ -12,13 +13,14 @@ import Api, { FetchMethodType } from './Api';
 // }
 
 export default class ContainerApi extends Api {
-  public async createContainer(user: any) {
+  public async createContainer(user: any, containerOptions: CreateContainerForm) {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
     return this.fetch(`/containers`, {
       headers: headers,
       method: FetchMethodType.PUT,
+      body: containerOptions,
     });
   }
 
@@ -60,6 +62,17 @@ export default class ContainerApi extends Api {
     return this.fetch(`/containers/stop`, {
       headers: headers,
       method: FetchMethodType.POST,
+      body: { containersId: containersId },
+    });
+  }
+
+  public async deleteContainers(user: any, containersId: Array<any>) {
+    const token = await accountApi.GetToken(user);
+    const headers = new Headers();
+    headers.set('token', token);
+    return this.fetch(`/containers`, {
+      headers: headers,
+      method: FetchMethodType.DELETE,
       body: { containersId: containersId },
     });
   }

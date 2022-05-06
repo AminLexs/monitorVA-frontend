@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ContainerTableHeaders } from 'enums/ContainerTableHeaders';
 import { ImageTableHeaders } from 'enums/ImageTableHeaders';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'handlers';
-import { setSelectedContainers } from 'handlers/containersManager';
+import { useLocale } from 'utils/localeUtils';
+import { getShortContainersID } from 'utils/stringUtils';
 
 export interface ImageContent {
   Id: string;
@@ -29,25 +28,44 @@ type TableContent = ImageContent | ContainerContent;
 interface TableProps {
   headings: Heading[];
   content: TableContent[];
+  onChange: (selectedItems: string[]) => void;
 }
 
-const Table = ({ headings, content }: TableProps) => {
-  const dispatch = useDispatch();
-  const { selectedContainers } = useSelector((state: RootState) => state.app.containersManager);
+const Table = ({ headings, content, onChange }: TableProps) => {
+  const [selectedItems, setSelectedItems] = useState<Array<string>>([]);
+  const getLocalizedString = useLocale();
+
+  const getFormattedValue = (rawValue: string, heading: string) => {
+    switch (heading) {
+      case ContainerTableHeaders.Created:
+      case ImageTableHeaders.Created:
+        return new Date(+rawValue * 1000).toString();
+      case ContainerTableHeaders.Image:
+        return rawValue.includes('sha256:')
+          ? `${getLocalizedString('deleted')}(${getShortContainersID(rawValue.slice(7, rawValue.length))})`
+          : rawValue;
+      case ContainerTableHeaders.Status:
+        return getLocalizedString(rawValue);
+      default:
+        return rawValue;
+    }
+  };
+  useEffect(() => {
+    onChange(selectedItems);
+  }, [selectedItems]);
 
   return (
     <table className={'centered'}>
       <thead>
         <tr>
-          <th>Selected</th>
+          <th>{getLocalizedString('selected')}</th>
           {headings.map((heading) => (
-            <th key={heading}>{heading}</th>
+            <th key={heading}>{getLocalizedString(heading)}</th>
           ))}
         </tr>
       </thead>
       <tbody>
         {content.map((element: TableContent, index) => {
-          element.created = new Date(+element.created * 1000).toString();
           return (
             <tr key={element.name + index}>
               <td>
@@ -57,17 +75,17 @@ const Table = ({ headings, content }: TableProps) => {
                     type="checkbox"
                     onChange={(event) => {
                       if (event.target.checked) {
-                        dispatch(setSelectedContainers([...selectedContainers, event.target.id]));
+                        setSelectedItems([...selectedItems, event.target.id]);
                       } else {
-                        dispatch(setSelectedContainers([...selectedContainers.filter((id) => id !== event.target.id)]));
+                        setSelectedItems([...selectedItems.filter((id) => id !== event.target.id)]);
                       }
                     }}
                   />
-                  <span></span>
+                  <span style={{ padding: '10px' }} />
                 </label>
               </td>
               {headings.map((heading) => (
-                <td key={element.name + index + heading}>{element[heading]}</td>
+                <td key={element.name + index + heading}>{getFormattedValue(element[heading], heading)}</td>
               ))}
             </tr>
           );

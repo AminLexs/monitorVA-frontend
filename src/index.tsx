@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+// @ts-ignore
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import AppRoutes from 'routes';
@@ -7,11 +8,22 @@ import store from 'store';
 
 import './index.scss';
 
-ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
-  </Provider>,
-  document.getElementById('root'),
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </Provider>
+  </React.StrictMode>,
 );
+// ReactDOM.render(
+//   <Provider store={store}>
+//     <BrowserRouter>
+//       <AppRoutes />
+//     </BrowserRouter>
+//   </Provider>,
+//   document.getElementById('root'),
+// );
