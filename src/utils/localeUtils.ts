@@ -59,6 +59,15 @@ enum EnglishLocale {
   memory = 'Memory',
   memoryUsage = 'Memory usage',
   reporting = 'Reporting',
+  run = 'Run',
+  pause = 'Pause',
+  seconds = 'Seconds',
+  requestFrequency = 'Request frequency',
+  byte = 'Byte',
+  kilobyte = 'Kilobyte',
+  megabyte = 'Megabyte',
+  gigabyte = 'Gigabyte',
+  terabyte = 'Terabyte',
 }
 
 enum RussianLocale {
@@ -101,4 +110,13 @@ enum RussianLocale {
   memory = 'Оперативная память',
   memoryUsage = 'Использование памяти',
   reporting = 'Отчётность',
+  run = 'Запустить',
+  pause = 'Приостановить',
+  seconds = 'Секунды',
+  requestFrequency = 'Частота запроса:',
+  byte = 'Байт',
+  kilobyte = 'Килобайт',
+  megabyte = 'Мегабайт',
+  gigabyte = 'Гигабайт',
+  terabyte = 'Терабайт',
 }

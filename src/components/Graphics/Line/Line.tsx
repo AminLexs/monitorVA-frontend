@@ -10,6 +10,7 @@ import {
 } from 'chart.js';
 import 'chartjs-adapter-luxon';
 import StreamingPlugin from 'chartjs-plugin-streaming';
+import zoomPlugin from 'chartjs-plugin-zoom';
 import { Line } from 'react-chartjs-2';
 import { containerApi } from 'thunks';
 
@@ -18,20 +19,33 @@ import { GraphicsType } from 'enums/GraphicsType';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from 'api/AccountApi';
 import { useLocale } from 'utils/localeUtils';
-import { updateLocaleTitles } from 'utils/chartUtils';
+import {
+  addOneSecondRefresh,
+  removeOneSecondRefresh,
+  switchRunPause,
+  updateFuncOnRefresh,
+  updateLocaleTitles,
+} from 'utils/chartUtils';
+import { bytesToGigabytes, bytesToKilobytes, bytesToMegabytes, bytesToTerabytes } from 'utils/dataFormattingUtils';
+import { MemoryType } from 'enums/MemoryType';
+import SimpleSelect from 'components/SimpleSelect';
+import { getOptionsFromArrayString, OptionType } from 'utils/selectUtils';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, StreamingPlugin);
+import styles from './Line.module.scss';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  StreamingPlugin,
+  zoomPlugin,
+);
 const optionsCPU = {
   responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: 'CPU',
-    },
-  },
   scales: {
     x: {
       display: true,
@@ -57,18 +71,41 @@ const optionsCPU = {
       },
     },
   },
-};
-const optionsMem = {
-  responsive: true,
   plugins: {
     legend: {
       position: 'top' as const,
     },
     title: {
       display: true,
-      text: 'Memory',
+      text: 'CPU',
+    },
+    zoom: {
+      pan: {
+        enabled: true,
+        mode: 'x',
+      },
+      zoom: {
+        pinch: {
+          enabled: true,
+        },
+        wheel: {
+          enabled: true,
+        },
+        mode: 'x',
+      },
+      limits: {
+        x: {
+          minDelay: 0,
+          maxDelay: 4000,
+          minDuration: 1000,
+          maxDuration: 20000,
+        },
+      },
     },
   },
+};
+const optionsMem = {
+  responsive: true,
   scales: {
     x: {
       display: true,
@@ -87,6 +124,40 @@ const optionsMem = {
       title: {
         display: true,
         text: 'Memory usage',
+      },
+    },
+  },
+
+  plugins: {
+    legend: {
+      position: 'top' as const,
+    },
+    title: {
+      display: true,
+      text: 'Memory',
+    },
+
+    zoom: {
+      pan: {
+        enabled: true,
+        mode: 'x',
+      },
+      zoom: {
+        pinch: {
+          enabled: true,
+        },
+        wheel: {
+          enabled: true,
+        },
+        mode: 'x',
+      },
+      limits: {
+        x: {
+          minDelay: 0,
+          maxDelay: 4000,
+          minDuration: 1000,
+          maxDuration: 20000,
+        },
       },
     },
   },
@@ -129,6 +200,28 @@ const LineWithType = ({ graphicType, containersId }: LineProps) => {
   const [chartJSData, setChartJSData] = useState({});
   const [containersNamesObserve, setContainersNamesObserve] = useState<Array<string>>([]);
 
+  const [refreshDelay, setRefreshDelay] = useState(3);
+  const [pause, setPause] = useState(false);
+  const [formattingMemory, setFormattingMemory] = useState<MemoryType>(MemoryType.Byte);
+
+  const optionsForSelectMemory = getOptionsFromArrayString(Object.values(MemoryType));
+
+  const getFormattingFunc = (formattingMemory: MemoryType) => {
+    switch (formattingMemory) {
+      case MemoryType.Kilobyte:
+        return bytesToKilobytes;
+      case MemoryType.Megabyte:
+        return bytesToMegabytes;
+      case MemoryType.Gigabyte:
+        return bytesToGigabytes;
+      case MemoryType.Terabyte:
+        return bytesToTerabytes;
+      case MemoryType.Byte:
+      default:
+        return (memory: number) => memory;
+    }
+  };
+
   useEffect(() => {
     if (chartRef.current) {
       const chart = chartRef.current;
@@ -136,11 +229,23 @@ const LineWithType = ({ graphicType, containersId }: LineProps) => {
     }
   }, [locale]);
 
+  const getDataWithFormatting = async () => {
+    const data = ((await containerApi.monitoringContainers(user, containersId)) as any).data;
+    if (graphicType === GraphicsType.Memory) {
+      return data.map((elem: any) => {
+        elem.mem = getFormattingFunc(formattingMemory)(+elem.mem);
+        return elem;
+      });
+    }
+
+    return data;
+  };
+
   const onRefresh = async (chart: any) => {
     // @ts-ignore
     if (containersId?.length) {
-      const containersData = ((await containerApi.monitoringContainers(user, containersId)) as any).data;
-      console.log(containersData);
+      const containersData = await getDataWithFormatting();
+
       chart.data.datasets.forEach((dataset: any) => {
         const containerData = containersData.find((containerData: any) => containerData.name === dataset.label);
         if (containerData) {
@@ -162,6 +267,11 @@ const LineWithType = ({ graphicType, containersId }: LineProps) => {
   };
 
   useEffect(() => {
+    const chart = chartRef.current!;
+    updateFuncOnRefresh(chart, onRefresh);
+  }, [formattingMemory]);
+
+  useEffect(() => {
     if (containersNamesObserve.length) {
       const data = {
         datasets: containersNamesObserve.map((containersName: any, index) => {
@@ -179,14 +289,12 @@ const LineWithType = ({ graphicType, containersId }: LineProps) => {
     if (user && containersId) {
       getContainersData();
       const chart = chartRef.current!;
-      // @ts-ignore
-      const realtimeOpts = chart.options?.scales?.x?.realtime;
-      realtimeOpts.onRefresh = onRefresh;
-      chart.update('none');
+      updateFuncOnRefresh(chart, onRefresh);
       return;
     }
   }, [containersId, containersNamesObserve, chartRef]);
 
+  console.log(formattingMemory);
   return (
     <div>
       {
@@ -199,6 +307,51 @@ const LineWithType = ({ graphicType, containersId }: LineProps) => {
           options={graphicType === GraphicsType.CPU ? optionsCPU : optionsMem}
         />
       }
+      {chartRef.current && (
+        <div className={styles.lineControl}>
+          <button
+            className="btn"
+            onClick={() => {
+              setPause((prev) => !prev);
+              switchRunPause(chartRef.current);
+            }}
+          >
+            {
+              // @ts-ignore
+              getLocalizedString(pause ? 'run' : 'pause')
+            }
+          </button>
+          <div className={styles.requestDelayControl}>
+            {getLocalizedString('requestFrequency')}
+            <button
+              className="btn"
+              onClick={() => {
+                setRefreshDelay((prev) => (prev < 30 ? ++prev : prev));
+                addOneSecondRefresh(chartRef.current);
+              }}
+            >
+              +
+            </button>
+            <div>{`${refreshDelay} ${getLocalizedString('seconds')}`}</div>
+            <button
+              className="btn"
+              onClick={() => {
+                removeOneSecondRefresh(chartRef.current);
+                setRefreshDelay((prev) => (prev > 1 ? --prev : prev));
+              }}
+            >
+              -
+            </button>
+          </div>
+          {graphicType === GraphicsType.Memory && (
+            <SimpleSelect
+              options={optionsForSelectMemory}
+              onChange={(event: any) => setFormattingMemory(event.value as MemoryType)}
+              firstValue={{ label: getLocalizedString(MemoryType.Byte), value: MemoryType.Byte } as OptionType}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };

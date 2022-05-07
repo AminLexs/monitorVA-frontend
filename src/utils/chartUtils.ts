@@ -33,3 +33,33 @@ export const updateYAxisLabel = (chart: any, label: string) => {
   chart.options.scales.y.title.text = label;
   chart.update();
 };
+
+export const switchRunPause = (chart: any) => {
+  const realtimeOpts = chart.options.scales.x.realtime;
+  realtimeOpts.pause = !realtimeOpts.pause;
+  chart.update('none');
+};
+
+export const addOneSecondRefresh = (chart: any) => {
+  const realtimeOpts = chart.options.scales.x.realtime;
+  if (realtimeOpts.refresh < 30000) {
+    realtimeOpts.refresh += 1000;
+    realtimeOpts.delay += 1000;
+    chart.update('none');
+  }
+};
+
+export const removeOneSecondRefresh = (chart: any) => {
+  const realtimeOpts = chart.options.scales.x.realtime;
+  if (realtimeOpts.refresh > 1000) {
+    realtimeOpts.refresh -= 1000;
+    realtimeOpts.delay -= 1000;
+    chart.update('none');
+  }
+};
+
+export const updateFuncOnRefresh = (chart: any, onRefresh: any) => {
+  const realtimeOpts = chart.options?.scales?.x?.realtime;
+  realtimeOpts.onRefresh = onRefresh;
+  chart.update('none');
+};

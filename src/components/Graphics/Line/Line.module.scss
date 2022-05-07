@@ -1,0 +1,10 @@
+.lineControl {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+.requestDelayControl {
+  @extend .lineControl;
+  font-size: 20px;
+  gap: 10px;
+}
