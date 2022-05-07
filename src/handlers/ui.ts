@@ -4,11 +4,13 @@ import { Locale } from 'enums/Locale';
 export interface UI {
   sidebar: boolean;
   locale: Locale;
+  loading: boolean;
 }
 
 const initialState: UI = {
   sidebar: false,
   locale: Locale.Ru,
+  loading: false,
 };
 
 const ui = createSlice({
@@ -21,9 +23,12 @@ const ui = createSlice({
     setLocale: (state: UI, { payload }: PayloadAction<Locale>) => {
       return { ...state, locale: payload };
     },
+    setLoading: (state: UI, { payload }: PayloadAction<boolean>) => {
+      return { ...state, loading: payload };
+    },
   },
 });
 
-export const { setSidebar, setLocale } = ui.actions;
+export const { setSidebar, setLocale, setLoading } = ui.actions;
 
 export default ui.reducer;

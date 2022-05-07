@@ -13,6 +13,8 @@ import { setImageName, setContainerName, setPublicPort, setPrivatePort } from 'h
 import { getShortContainersID } from 'utils/stringUtils';
 import { setSelectedContainers } from 'handlers/containersManager';
 import { useLocale } from 'utils/localeUtils';
+import { setLoading } from 'handlers/ui';
+import Loading from 'components/Loading';
 
 import './Popup.css';
 
@@ -23,7 +25,8 @@ const ContainersList = () => {
   const { imageName, containerName, publicPort, privatePort } = useSelector(
     (state: RootState) => state.app.createContainerForm,
   );
-  const getLocalizedString = useLocale();
+  const { getLocalizedString } = useLocale();
+  const { loading } = useSelector((state: RootState) => state.app.ui);
 
   const dispatch = useDispatch();
 
@@ -38,25 +41,29 @@ const ContainersList = () => {
 
   useEffect(() => {
     if (user) {
-      getContainers(user);
+      dispatch(setLoading(true));
+      getContainers(user).then(() => dispatch(setLoading(false)));
     }
   }, [user]);
 
   const handleStartContainers = () => {
     containerApi.startContainers(user, selectedContainers.map(getShortContainersID)).then(() => {
-      getContainers(user);
+      dispatch(setLoading(true));
+      getContainers(user).then(() => dispatch(setLoading(false)));
     });
   };
 
   const handleStopContainers = () => {
     containerApi.stopContainers(user, selectedContainers.map(getShortContainersID)).then(() => {
-      getContainers(user);
+      dispatch(setLoading(true));
+      getContainers(user).then(() => dispatch(setLoading(false)));
     });
   };
 
   const handleDeleteContainers = () => {
     containerApi.deleteContainers(user, selectedContainers.map(getShortContainersID)).then(() => {
-      getContainers(user);
+      dispatch(setLoading(true));
+      getContainers(user).then(() => dispatch(setLoading(false)));
     });
   };
 
@@ -70,7 +77,8 @@ const ContainersList = () => {
 
   return (
     <div>
-      {containers.length !== 0 && (
+      {loading && <Loading />}
+      {!loading && containers.length !== 0 && (
         <div>
           <button className="btn" onClick={handleStartContainers}>
             {getLocalizedString('startContainer')}

@@ -3,6 +3,9 @@ import { ContainerTableHeaders } from 'enums/ContainerTableHeaders';
 import { ImageTableHeaders } from 'enums/ImageTableHeaders';
 import { useLocale } from 'utils/localeUtils';
 import { getShortContainersID } from 'utils/stringUtils';
+import clsx from 'clsx';
+
+import styles from './Table.module.scss';
 
 export interface ImageContent {
   Id: string;
@@ -33,7 +36,7 @@ interface TableProps {
 
 const Table = ({ headings, content, onChange }: TableProps) => {
   const [selectedItems, setSelectedItems] = useState<Array<string>>([]);
-  const getLocalizedString = useLocale();
+  const { getLocalizedString } = useLocale();
 
   const getFormattedValue = (rawValue: string, heading: string) => {
     switch (heading) {
@@ -85,7 +88,19 @@ const Table = ({ headings, content, onChange }: TableProps) => {
                 </label>
               </td>
               {headings.map((heading) => (
-                <td key={element.name + index + heading}>{getFormattedValue(element[heading], heading)}</td>
+                <td
+                  key={element.name + index + heading}
+                  className={
+                    heading === ContainerTableHeaders.Status
+                      ? clsx(
+                          element[heading] === 'running' && styles.statusRunning,
+                          element[heading] === 'exited' && styles.statusExited,
+                        )
+                      : undefined
+                  }
+                >
+                  {getFormattedValue(element[heading], heading)}
+                </td>
               ))}
             </tr>
           );

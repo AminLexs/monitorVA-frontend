@@ -5,16 +5,16 @@ import { RootState } from 'handlers';
 export const useLocale = () => {
   const { locale } = useSelector((state: RootState) => state.app.ui);
 
-  return getLocalizedString(locale);
+  return { getLocalizedString: getLocalizedString(locale), locale };
 };
 
 const getLocalizedString = (locale: Locale) => {
   return (key: string) => {
     switch (locale) {
       case Locale.En:
-        return EnglishLocale[key];
+        return EnglishLocale[key] as string;
       case Locale.Ru:
-        return RussianLocale[key];
+        return RussianLocale[key] as string;
     }
   };
 };
@@ -53,6 +53,12 @@ enum EnglishLocale {
   deleteImage = 'Delete image',
   chooseImageOrStartWritting = 'Choose image or start typing',
   version = 'Version',
+  cpuUsage = 'CPU usage',
+  cpu = 'CPU',
+  time = 'Time',
+  memory = 'Memory',
+  memoryUsage = 'Memory usage',
+  reporting = 'Reporting',
 }
 
 enum RussianLocale {
@@ -89,4 +95,10 @@ enum RussianLocale {
   deleteImage = 'Удалить образ',
   chooseImageOrStartWritting = 'Выберите образ или начните вводить',
   version = 'Версия',
+  cpuUsage = 'Использование ЦП',
+  cpu = 'ЦП',
+  time = 'Время',
+  memory = 'Оперативная память',
+  memoryUsage = 'Использование памяти',
+  reporting = 'Отчётность',
 }

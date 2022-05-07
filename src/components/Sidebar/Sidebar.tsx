@@ -10,7 +10,7 @@ import { useLocale } from 'utils/localeUtils';
 
 const Sidebar = () => {
   const { locale } = useSelector((state: RootState) => state.app.ui);
-  const getLocalizedString = useLocale();
+  const { getLocalizedString } = useLocale();
   const dispatch = useDispatch();
   return (
     <ul id="slide-out" className="sidenav sidenav-fixed">
@@ -59,6 +59,22 @@ const Sidebar = () => {
           }}
         >
           {getLocalizedString('list')}
+        </a>
+      </li>
+      <li>
+        <div className="divider" />
+      </li>
+      <li>
+        <a className="subheader">{getLocalizedString('reporting')}</a>
+      </li>
+      <li>
+        <a
+          className="waves-effect"
+          onClick={() => {
+            dispatch(setDashboardStep(DashboardStep.Reporting));
+          }}
+        >
+          {getLocalizedString('reporting')}
         </a>
       </li>
       <li>

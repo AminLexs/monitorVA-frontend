@@ -6,13 +6,17 @@ interface SimplePopupProps {
   onClosePopup: () => void;
 }
 
+import styles from './SimplePopup.module.scss';
+
 const SimplePopup = ({ openPopup, onClosePopup, children }: React.PropsWithChildren<SimplePopupProps>) => {
   return (
     <Popup open={openPopup} closeOnDocumentClick onClose={onClosePopup}>
-      <a onClick={onClosePopup} className="btn-floating btn waves-effect waves-light red">
-        <i className="material-icons">close</i>
-      </a>
-      <div>{children}</div>
+      <div className={styles.popupContainer}>
+        <a onClick={onClosePopup} className=" right btn-floating btn waves-effect waves-light red">
+          <i className="material-icons">close</i>
+        </a>
+        <div className={styles.popupBodyContainer}>{children}</div>
+      </div>
     </Popup>
   );
 };

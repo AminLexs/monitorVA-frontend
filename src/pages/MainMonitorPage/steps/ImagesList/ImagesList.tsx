@@ -6,15 +6,21 @@ import { auth } from 'api/AccountApi';
 import { ImageTableHeaders } from 'enums/ImageTableHeaders';
 import SimplePopup from 'components/SimplePopup';
 import { useLocale } from 'utils/localeUtils';
+import Loading from 'components/Loading';
+import { setLoading } from 'handlers/ui';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'handlers';
 
 const ImagesList = () => {
-  const [user, loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const [images, setImages] = useState([]);
   const [openPopup, setOpenPopup] = useState(false);
   const [fileInputData, setFileInputData] = useState<FormData | null>(null);
   const [selectedImages, setSelectedImages] = useState<Array<string>>([]);
   const [imageName, setImageName] = useState('');
-  const getLocalizedString = useLocale();
+  const { getLocalizedString } = useLocale();
+  const { loading } = useSelector((state: RootState) => state.app.ui);
+  const dispatch = useDispatch();
 
   const closeModal = () => {
     setFileInputData(null);
@@ -26,24 +32,25 @@ const ImagesList = () => {
     setImages(data);
   };
   useEffect(() => {
-    if (loading) {
-      // maybe trigger a loading screen
-      return;
-    }
     if (user) {
-      getImages(user);
+      dispatch(setLoading(true));
+      getImages(user).then(() => {
+        dispatch(setLoading(false));
+      });
     }
-  }, [user, loading]);
+  }, [user]);
 
   const handleDeleteImages = () => {
     imageApi.deleteImages(user, selectedImages).then(() => {
-      getImages(user);
+      dispatch(setLoading(true));
+      getImages(user).then(() => dispatch(setLoading(false)));
     });
   };
 
   return (
     <div>
-      {images.length !== 0 && (
+      {loading && <Loading />}
+      {!loading && images.length !== 0 && (
         <div>
           <button className="btn blue darken-1" onClick={() => setOpenPopup((o) => !o)}>
             {getLocalizedString('addImage')}
