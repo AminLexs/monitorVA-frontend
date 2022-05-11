@@ -109,4 +109,22 @@ export default class ContainerApi extends Api {
       body: { containersId: containersId },
     });
   }
+
+  public async getContainerData(user: any, containerId: string) {
+    const token = await accountApi.GetToken(user);
+    const headers = new Headers();
+    headers.set('token', token);
+    return this.fetch(`/container/?containerID=${containerId}`, {
+      headers: headers,
+    });
+  }
+
+  public async getContainerLogs(user: any, containerId: string) {
+    const token = await accountApi.GetToken(user);
+    const headers = new Headers();
+    headers.set('token', token);
+    return this.fetch(`/container/logs/?containerID=${containerId}`, {
+      headers: headers,
+    });
+  }
 }

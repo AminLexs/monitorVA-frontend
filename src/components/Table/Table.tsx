@@ -5,6 +5,10 @@ import { useLocale } from 'utils/localeUtils';
 import { getShortContainersID } from 'utils/stringUtils';
 import clsx from 'clsx';
 import { searchNameFunc, sortTable } from 'utils/tableUtils';
+import { setCurrentContainerID } from 'handlers/containersManager';
+import { setDashboardStep } from 'handlers/stages';
+import { useDispatch } from 'react-redux';
+import { DashboardStep } from 'enums/DashboardStep';
 
 import styles from './Table.module.scss';
 
@@ -54,6 +58,7 @@ const renderHeadingContent = (text: string, indexHeading: number) => {
 const Table = ({ headings, content, onChange }: TableProps) => {
   const [selectedItems, setSelectedItems] = useState<Array<string>>([]);
   const { getLocalizedString } = useLocale();
+  const dispatch = useDispatch();
 
   const getFormattedValue = (rawValue: string, heading: string) => {
     switch (heading) {
@@ -73,6 +78,11 @@ const Table = ({ headings, content, onChange }: TableProps) => {
   useEffect(() => {
     onChange(selectedItems);
   }, [selectedItems]);
+
+  const handleOnClickRow = (id: string) => {
+    dispatch(setCurrentContainerID(id));
+    dispatch(setDashboardStep(DashboardStep.EditContainer));
+  };
 
   return (
     <div>
@@ -113,6 +123,7 @@ const Table = ({ headings, content, onChange }: TableProps) => {
                 {headings.map((heading) => (
                   <td
                     key={element.name + index + heading}
+                    onClick={() => handleOnClickRow(getShortContainersID(element.Id))}
                     className={
                       heading === ContainerTableHeaders.Status
                         ? clsx(

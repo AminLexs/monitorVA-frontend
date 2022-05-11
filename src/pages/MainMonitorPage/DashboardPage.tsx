@@ -11,17 +11,25 @@ import ContainersList from './steps/ContainersList';
 import ImagesList from './steps/ImagesList';
 import ContainersMonitor from './steps/ContainersMonitor';
 import Reporting from './steps/Reporting';
+import DetailContainer from './steps/DetailContainer/DetailContainer';
 
 const getPageByStep = (step: DashboardStep | null) => {
   switch (step) {
     case DashboardStep.ContainersList:
       return <ContainersList />;
+
     case DashboardStep.ImageList:
       return <ImagesList />;
+
     case DashboardStep.ContainersMonitoring:
       return <ContainersMonitor />;
+
     case DashboardStep.Reporting:
       return <Reporting />;
+
+    case DashboardStep.EditContainer:
+      return <DetailContainer />;
+
     default:
       return <ContainersList />;
   }

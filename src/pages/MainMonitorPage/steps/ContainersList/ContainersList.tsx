@@ -34,6 +34,7 @@ const ContainersList = () => {
 
   const getContainers = async (user: any) => {
     const data = ((await containerApi.getContainers(user)) as any).data;
+    console.log(data);
     setContainers(data);
   };
   const { selectedContainers } = useSelector((state: RootState) => state.app.containersManager);

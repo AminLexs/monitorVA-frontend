@@ -3,4 +3,5 @@ export enum DashboardStep {
   ImageList = 'ImageList',
   ContainersMonitoring = 'ContainersMonitoring',
   Reporting = 'Reporting',
+  EditContainer = 'EditContainer',
 }

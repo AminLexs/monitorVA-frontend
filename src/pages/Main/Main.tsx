@@ -15,7 +15,7 @@ const Main = ({ children }: React.PropsWithChildren<{}>) => {
       <Helmet>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
       </Helmet>
-      <div className={styles.header}></div>
+      {/*<div className={styles.header}></div>*/}
       {sidebar && <Sidebar />}
       <div className={clsx(styles.main, sidebar && styles.mainMarginWithSidebar, loading && styles.mainLoading)}>
         {children}
