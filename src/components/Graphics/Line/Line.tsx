@@ -294,7 +294,6 @@ const LineWithType = ({ graphicType, containersId }: LineProps) => {
     }
   }, [containersId, containersNamesObserve, chartRef]);
 
-  console.log(formattingMemory);
   return (
     <div>
       {

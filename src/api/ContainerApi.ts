@@ -76,4 +76,37 @@ export default class ContainerApi extends Api {
       body: { containersId: containersId },
     });
   }
+
+  public async restartContainers(user: any, containersId: Array<any>) {
+    const token = await accountApi.GetToken(user);
+    const headers = new Headers();
+    headers.set('token', token);
+    return this.fetch(`/containers/restart`, {
+      headers: headers,
+      method: FetchMethodType.POST,
+      body: { containersId: containersId },
+    });
+  }
+
+  public async pauseContainers(user: any, containersId: Array<any>) {
+    const token = await accountApi.GetToken(user);
+    const headers = new Headers();
+    headers.set('token', token);
+    return this.fetch(`/containers/pause`, {
+      headers: headers,
+      method: FetchMethodType.POST,
+      body: { containersId: containersId },
+    });
+  }
+
+  public async unpauseContainers(user: any, containersId: Array<any>) {
+    const token = await accountApi.GetToken(user);
+    const headers = new Headers();
+    headers.set('token', token);
+    return this.fetch(`/containers/unpause`, {
+      headers: headers,
+      method: FetchMethodType.POST,
+      body: { containersId: containersId },
+    });
+  }
 }

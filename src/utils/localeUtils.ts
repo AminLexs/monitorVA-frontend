@@ -37,6 +37,9 @@ enum EnglishLocale {
   stopContainer = 'Stop container',
   addContainer = 'Add container',
   deleteContainer = 'Delete container',
+  restartContainer = 'Restart container',
+  pauseContainer = 'Pause container',
+  unpauseContainer = 'Unpause container',
   containerName = 'Container name',
   create = 'Create',
   save = 'Save',
@@ -68,6 +71,7 @@ enum EnglishLocale {
   megabyte = 'Megabyte',
   gigabyte = 'Gigabyte',
   terabyte = 'Terabyte',
+  startTypingName = 'Start typing name...',
 }
 
 enum RussianLocale {
@@ -88,6 +92,9 @@ enum RussianLocale {
   stopContainer = 'Остановить контейнер',
   addContainer = 'Добавить контейнер',
   deleteContainer = 'Удалить контейнер',
+  restartContainer = 'Перезагрузить контейнер',
+  pauseContainer = 'Приостановить контейнер',
+  unpauseContainer = 'Возобновить контейнер',
   containerName = 'Имя контейнера',
   create = 'Создать',
   save = 'Сохранить',
@@ -119,4 +126,5 @@ enum RussianLocale {
   megabyte = 'Мегабайт',
   gigabyte = 'Гигабайт',
   terabyte = 'Терабайт',
+  startTypingName = 'Начните вводить имя...',
 }

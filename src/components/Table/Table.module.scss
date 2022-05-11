@@ -7,3 +7,18 @@
   color: red;
   font-weight: 700;
 }
+
+.heading {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.text {
+  font-weight: 500;
+}
+
+.trBodyTable {
+  cursor: pointer;
+}

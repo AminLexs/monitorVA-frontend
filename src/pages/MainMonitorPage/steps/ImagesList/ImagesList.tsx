@@ -67,7 +67,7 @@ const ImagesList = () => {
           />
           <SimplePopup openPopup={openPopup} onClosePopup={closeModal}>
             <div className="input-field inline">
-              <input id="image_name" type="text" onChange={(event) => setImageName(event.target.value)} />
+              <input id="image_name" type="text" onChange={(event) => setImageName(event.target.value.toLowerCase())} />
               <label htmlFor="email_inline">{getLocalizedString('imageName')}</label>
             </div>
             <input

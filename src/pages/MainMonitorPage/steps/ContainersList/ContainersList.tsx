@@ -35,7 +35,6 @@ const ContainersList = () => {
   const getContainers = async (user: any) => {
     const data = ((await containerApi.getContainers(user)) as any).data;
     setContainers(data);
-    console.log(data);
   };
   const { selectedContainers } = useSelector((state: RootState) => state.app.containersManager);
 
@@ -67,6 +66,27 @@ const ContainersList = () => {
     });
   };
 
+  const handleRestartContainers = () => {
+    containerApi.restartContainers(user, selectedContainers.map(getShortContainersID)).then(() => {
+      dispatch(setLoading(true));
+      getContainers(user).then(() => dispatch(setLoading(false)));
+    });
+  };
+
+  const handlePauseContainers = () => {
+    containerApi.pauseContainers(user, selectedContainers.map(getShortContainersID)).then(() => {
+      dispatch(setLoading(true));
+      getContainers(user).then(() => dispatch(setLoading(false)));
+    });
+  };
+
+  const handleUnpauseContainers = () => {
+    containerApi.unpauseContainers(user, selectedContainers.map(getShortContainersID)).then(() => {
+      dispatch(setLoading(true));
+      getContainers(user).then(() => dispatch(setLoading(false)));
+    });
+  };
+
   const loadImagesPromise = async (inputValue: string) => {
     const images = ((await imageApi.getImages(user)) as any).data.map((image: any) => ({
       label: image.name,
@@ -77,14 +97,25 @@ const ContainersList = () => {
 
   return (
     <div>
-      {loading && <Loading />}
-      {!loading && containers.length !== 0 && (
+      {loading ? (
+        <Loading />
+      ) : (
         <div>
           <button className="btn" onClick={handleStartContainers}>
             {getLocalizedString('startContainer')}
           </button>
           <button className="btn red lighten-2" onClick={handleStopContainers}>
             {getLocalizedString('stopContainer')}
+          </button>
+          <button className="btn blue lighten-2" onClick={handleRestartContainers}>
+            {getLocalizedString('restartContainer')}
+          </button>
+          <button className="btn blue lighten-2" onClick={handlePauseContainers}>
+            {getLocalizedString('pauseContainer')}
+          </button>
+
+          <button className="btn blue lighten-2" onClick={handleUnpauseContainers}>
+            {getLocalizedString('unpauseContainer')}
           </button>
           <button className="btn blue darken-1" onClick={() => setOpenPopup((o) => !o)}>
             {getLocalizedString('addContainer')}
