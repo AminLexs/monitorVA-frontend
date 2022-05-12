@@ -9,6 +9,8 @@ import { setCurrentContainerID } from 'handlers/containersManager';
 import { setDashboardStep } from 'handlers/stages';
 import { useDispatch } from 'react-redux';
 import { DashboardStep } from 'enums/DashboardStep';
+import { getHumanBytes } from 'utils/dataFormattingUtils';
+import { TableType } from 'enums/TableType';
 
 import styles from './Table.module.scss';
 
@@ -36,6 +38,7 @@ type TableContent = ImageContent | ContainerContent;
 interface TableProps {
   headings: Heading[];
   content: TableContent[];
+  tableType: TableType;
   onChange: (selectedItems: string[]) => void;
 }
 
@@ -55,7 +58,7 @@ const renderHeadingContent = (text: string, indexHeading: number) => {
   );
 };
 
-const Table = ({ headings, content, onChange }: TableProps) => {
+const Table = ({ headings, content, tableType, onChange }: TableProps) => {
   const [selectedItems, setSelectedItems] = useState<Array<string>>([]);
   const { getLocalizedString } = useLocale();
   const dispatch = useDispatch();
@@ -71,6 +74,10 @@ const Table = ({ headings, content, onChange }: TableProps) => {
           : rawValue;
       case ContainerTableHeaders.Status:
         return getLocalizedString(rawValue);
+
+      case ImageTableHeaders.Size:
+        return getHumanBytes(+rawValue);
+
       default:
         return rawValue;
     }
@@ -123,7 +130,9 @@ const Table = ({ headings, content, onChange }: TableProps) => {
                 {headings.map((heading) => (
                   <td
                     key={element.name + index + heading}
-                    onClick={() => handleOnClickRow(getShortContainersID(element.Id))}
+                    onClick={() => {
+                      if (tableType === TableType.ContainerTable) handleOnClickRow(getShortContainersID(element.Id));
+                    }}
                     className={
                       heading === ContainerTableHeaders.Status
                         ? clsx(

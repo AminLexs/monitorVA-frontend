@@ -127,4 +127,15 @@ export default class ContainerApi extends Api {
       headers: headers,
     });
   }
+
+  public async executeCommandContainer(user: any, containerId: string, cmd: string) {
+    const token = await accountApi.GetToken(user);
+    const headers = new Headers();
+    headers.set('token', token);
+    return this.fetch(`/container/exec`, {
+      headers: headers,
+      method: FetchMethodType.POST,
+      body: { containerId: containerId, cmd: cmd },
+    });
+  }
 }

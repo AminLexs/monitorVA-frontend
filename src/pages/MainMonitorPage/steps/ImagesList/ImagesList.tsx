@@ -10,6 +10,7 @@ import Loading from 'components/Loading';
 import { setLoading } from 'handlers/ui';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'handlers';
+import { TableType } from '../../../../enums/TableType';
 
 const ImagesList = () => {
   const [user] = useAuthState(auth);
@@ -64,6 +65,7 @@ const ImagesList = () => {
             onChange={(selectedItems) => {
               setSelectedImages(selectedItems);
             }}
+            tableType={TableType.ImageTable}
           />
           <SimplePopup openPopup={openPopup} onClosePopup={closeModal}>
             <div className="input-field inline">

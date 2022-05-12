@@ -9,7 +9,7 @@ import { RootState } from 'handlers';
 import SimplePopup from 'components/SimplePopup';
 import AsyncSelect from 'react-select/async';
 import { searchAsyncSelectOptions } from 'utils/selectUtils';
-import { setImageName, setContainerName, setPublicPort, setPrivatePort } from 'handlers/createContainerForm';
+import { setContainerName, setImageName, setPrivatePort, setPublicPort } from 'handlers/createContainerForm';
 import { getShortContainersID } from 'utils/stringUtils';
 import { setSelectedContainers } from 'handlers/containersManager';
 import { useLocale } from 'utils/localeUtils';
@@ -17,6 +17,7 @@ import { setLoading } from 'handlers/ui';
 import Loading from 'components/Loading';
 
 import './Popup.css';
+import { TableType } from '../../../../enums/TableType';
 
 const ContainersList = () => {
   const [user] = useAuthState(auth);
@@ -130,6 +131,7 @@ const ContainersList = () => {
             onChange={(selectedItems) => {
               dispatch(setSelectedContainers(selectedItems));
             }}
+            tableType={TableType.ContainerTable}
           />
           <SimplePopup openPopup={openPopup} onClosePopup={closeModal}>
             <div className="input-field inline">
