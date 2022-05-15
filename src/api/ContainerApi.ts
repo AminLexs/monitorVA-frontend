@@ -138,4 +138,15 @@ export default class ContainerApi extends Api {
       body: { containerId: containerId, cmd: cmd },
     });
   }
+
+  public async getPDFsDataContainers(user: any, containersId: Array<string>, lang: string) {
+    const token = await accountApi.GetToken(user);
+    const headers = new Headers();
+    headers.set('token', token);
+    return this.fetch(`/containers/pdf`, {
+      headers: headers,
+      method: FetchMethodType.POST,
+      body: { containersId: containersId, lang: lang },
+    });
+  }
 }

@@ -15,9 +15,9 @@ import { setSelectedContainers } from 'handlers/containersManager';
 import { useLocale } from 'utils/localeUtils';
 import { setLoading } from 'handlers/ui';
 import Loading from 'components/Loading';
+import { TableType } from 'enums/TableType';
 
 import './Popup.css';
-import { TableType } from '../../../../enums/TableType';
 
 const ContainersList = () => {
   const [user] = useAuthState(auth);

@@ -62,6 +62,7 @@ enum EnglishLocale {
   memory = 'Memory',
   memoryUsage = 'Memory usage',
   reporting = 'Reporting',
+  report = 'Report',
   run = 'Run',
   pause = 'Pause',
   seconds = 'Seconds',
@@ -88,6 +89,12 @@ enum EnglishLocale {
   network = 'Network',
   createDate = 'create date: ',
   statusWithTwoDots = 'Status: ',
+  created2 = 'Created',
+  running2 = 'Running',
+  restarts = 'Restarts',
+  exited2 = 'Exited',
+  paused2 = 'Paused',
+  dead2 = 'Dead',
 }
 
 enum RussianLocale {
@@ -133,6 +140,7 @@ enum RussianLocale {
   memory = 'Оперативная память',
   memoryUsage = 'Использование памяти',
   reporting = 'Отчётность',
+  report = 'Отчёт',
   run = 'Запустить',
   pause = 'Приостановить',
   seconds = 'Секунды',
@@ -159,4 +167,16 @@ enum RussianLocale {
   network = 'Сеть',
   createDate = 'дата создания: ',
   statusWithTwoDots = 'Статус: ',
+  created2 = 'Созданных',
+  running2 = 'Запущенных',
+  restarts = 'Перезапускающихся',
+  exited2 = 'Завершённых',
+  paused2 = 'Приостановленных',
+  dead2 = 'Мёртвых',
 }
+// Созданных
+// Работающих
+// Перезапускаются
+// Завершённых
+// Приостановленных
+// Мёртвых

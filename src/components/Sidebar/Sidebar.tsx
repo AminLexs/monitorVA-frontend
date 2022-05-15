@@ -74,7 +74,7 @@ const Sidebar = () => {
             dispatch(setDashboardStep(DashboardStep.Reporting));
           }}
         >
-          {getLocalizedString('reporting')}
+          {getLocalizedString('report')}
         </a>
       </li>
       <li>

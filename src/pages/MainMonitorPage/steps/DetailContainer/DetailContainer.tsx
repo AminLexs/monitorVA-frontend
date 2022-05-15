@@ -47,11 +47,7 @@ const DetailContainer = () => {
 
   return (
     <div>
-      {currentContainerInfo && logsOpen && (
-        <div className={styles.console}>
-          <p style={{ color: 'white', whiteSpace: 'pre-wrap' }}>{logsData}</p>
-        </div>
-      )}
+      {currentContainerInfo && logsOpen && <textarea readOnly value={logsData} className={styles.console} />}
       {currentContainerInfo && consoleOpen && (
         <ReactConsole
           autoFocus
