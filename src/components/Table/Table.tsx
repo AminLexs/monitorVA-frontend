@@ -60,14 +60,14 @@ const renderHeadingContent = (text: string, indexHeading: number) => {
 
 const Table = ({ headings, content, tableType, onChange }: TableProps) => {
   const [selectedItems, setSelectedItems] = useState<Array<string>>([]);
-  const { getLocalizedString } = useLocale();
+  const { getLocalizedString, locale } = useLocale();
   const dispatch = useDispatch();
 
   const getFormattedValue = (rawValue: string, heading: string) => {
     switch (heading) {
       case ContainerTableHeaders.Created:
       case ImageTableHeaders.Created:
-        return new Date(+rawValue * 1000).toString();
+        return new Date(+rawValue * 1000).toLocaleString(locale);
       case ContainerTableHeaders.Image:
         return rawValue.includes('sha256:')
           ? `${getLocalizedString('deleted')}(${getShortContainersID(rawValue.slice(7, rawValue.length))})`
@@ -88,7 +88,7 @@ const Table = ({ headings, content, tableType, onChange }: TableProps) => {
 
   const handleOnClickRow = (id: string) => {
     dispatch(setCurrentContainerID(id));
-    dispatch(setDashboardStep(DashboardStep.EditContainer));
+    dispatch(setDashboardStep(DashboardStep.DetailContainer));
   };
 
   return (

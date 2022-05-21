@@ -1,5 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { setDashboardStep } from 'handlers/stages';
+import { DashboardStep } from 'enums/DashboardStep';
 import { RootState } from 'handlers';
 import { setCurrentContainerID } from 'handlers/containersManager';
 import { containerApi } from 'thunks';
@@ -8,6 +10,7 @@ import { auth } from 'api/AccountApi';
 import { getShortContainersID } from 'utils/stringUtils';
 import ReactConsole from '@webscopeio/react-console';
 import { useLocale } from 'utils/localeUtils';
+import EmailPicker from "components/EmailPicker";
 
 import styles from './DetailContainer.module.scss';
 
@@ -44,6 +47,10 @@ const DetailContainer = () => {
     setLogsOpen(true);
     setLogsData(((await containerApi.getContainerLogs(user, currentContainerID!)) as any).data);
   };
+
+  const handleEditClick = () => {
+    dispatch(setDashboardStep(DashboardStep.EditContainer))
+  }
 
   return (
     <div>
@@ -130,6 +137,9 @@ const DetailContainer = () => {
                 {getLocalizedString('maximumRetryCount')}
                 {currentContainerInfo.HostConfig.RestartPolicy.MaximumRetryCount}
               </p>
+              <button className="btn">
+                {getLocalizedString('edit')}
+              </button>
             </li>
             <li className="collection-item avatar">
               <i className="material-icons circle">folder</i>
@@ -174,12 +184,52 @@ const DetailContainer = () => {
               </p>
             </li>
             <li className="collection-item avatar">
-              <i className="material-icons circle green">insert_chart</i>
-              <span className="title">Title</span>
+              <i className="material-icons circle green">email</i>
+              <span className="title">
+                {getLocalizedString('notification')}
+              </span>
               <p>
-                First Line <br />
-                Second Line
+                <EmailPicker getLocalizedString={getLocalizedString} initialItems={[]} onChange={()=>{}}/>
+                <div style={{display:"flex",gap:"10px"}}>
+                  <label>
+                    <input type="checkbox" />
+                    <span>{getLocalizedString('eventDestroy')}</span>
+                  </label>
+                  <label>
+                    <input type="checkbox" />
+                    <span>{getLocalizedString('eventDie')}</span>
+                  </label>
+                  <label>
+                    <input type="checkbox" />
+                    <span>{getLocalizedString('eventKill')}</span>
+                  </label>
+                  <label>
+                    <input type="checkbox" />
+                    <span>{getLocalizedString('eventStart')}</span>
+                  </label>
+                  <label>
+                    <input type="checkbox" />
+                    <span>{getLocalizedString('eventRestart')}</span>
+                  </label>
+                </div>
+
               </p>
+              <div className="switch">
+                <label>
+                  {getLocalizedString('off')}
+                  <input type="checkbox"/>
+                    <span className="lever"/>
+                  {getLocalizedString('on')}
+                </label>
+              </div>
+            </li>
+            <li className="collection-item avatar">
+              <i className="material-icons circle green">create</i>
+              <span onClick={handleEditClick} className="title">
+                <button className="btn">
+                  {getLocalizedString('edit')}
+                </button></span>
+
             </li>
           </ul>
         </>

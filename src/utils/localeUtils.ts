@@ -95,6 +95,18 @@ enum EnglishLocale {
   exited2 = 'Exited',
   paused2 = 'Paused',
   dead2 = 'Dead',
+  edit = 'Edit',
+  notification = 'Notification',
+  typeEmailAndPressEnter = 'Type or paste email addresses and press `Enter`...',
+  hasAlreadyAdded = 'has already been added.',
+  isNotValidEmail = 'is not a valid email address.',
+  on = 'On',
+  off = 'Off',
+  eventDestroy = 'Event \'Destroy\'',
+  eventDie = 'Event \'Die\'',
+  eventKill = 'Event \'Kill\'',
+  eventStart = 'Event \'Start\'',
+  eventRestart = 'Event \'Restart\'',
 }
 
 enum RussianLocale {
@@ -173,6 +185,18 @@ enum RussianLocale {
   exited2 = 'Завершённых',
   paused2 = 'Приостановленных',
   dead2 = 'Мёртвых',
+  edit = 'Редактировать',
+  notification = 'Оповещения',
+  typeEmailAndPressEnter = 'Введите или вставьте email и нажмите `Enter`...',
+  hasAlreadyAdded = 'уже добавлен.',
+  isNotValidEmail = 'некорректный email',
+  on = 'Вкл',
+  off = 'Выкл',
+  eventDestroy = 'Событие \'Destroy\'',
+  eventDie = 'Событие \'Die\'',
+  eventKill = 'Событие \'Kill\'',
+  eventStart = 'Событие \'Start\'',
+  eventRestart = 'Событие \'Restart\'',
 }
 // Созданных
 // Работающих
