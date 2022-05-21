@@ -1,11 +1,11 @@
-export const searchNameFunc = () => {
+export const searchNameFunc = (searchColumn=1) => {
   let input, filter, table, tr, td, i;
   input = document.getElementById('searchInput') as HTMLInputElement;
   filter = input!.value.toUpperCase();
   table = document.getElementById('table');
   tr = table!.getElementsByTagName('tr');
   for (i = 1; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName('td')[1];
+    td = tr[i].getElementsByTagName('td')[searchColumn];
     if (td) {
       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = '';

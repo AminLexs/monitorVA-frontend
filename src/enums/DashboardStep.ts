@@ -6,4 +6,5 @@ export enum DashboardStep {
   DetailContainer = 'DetailContainer',
   EditContainer = 'EditContainer',
   UserManager = 'UserManager',
+  UserRegistration = 'UserRegistration',
 }

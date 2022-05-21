@@ -3,8 +3,13 @@
   flex-direction: row;
   gap: 50px;
 }
+
+.padding15 {
+  padding: 15px;
+}
+
 .requestDelayControl {
   @extend .lineControl;
-  font-size: 20px;
+  font-size: 18px;
   gap: 10px;
 }

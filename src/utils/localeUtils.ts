@@ -117,6 +117,7 @@ enum EnglishLocale {
   deleteUser = 'Delete user',
   admin = 'Admin',
   user = 'User',
+  registration = 'Registration',
 }
 
 enum RussianLocale {
@@ -216,6 +217,7 @@ enum RussianLocale {
   deleteUser = 'Удалить пользователя',
   admin = 'Администратор',
   user = 'Пользователь',
+  registration = 'Регистрация',
 }
 // Созданных
 // Работающих

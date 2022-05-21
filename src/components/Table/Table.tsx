@@ -95,10 +95,11 @@ const Table = ({ headings, content, tableType, onChange }: TableProps) => {
     <div>
       <div style={{ width: '50%' }} className="input-field right">
         <i className="material-icons prefix">search</i>
-        <input placeholder={getLocalizedString('startTypingName')} id="searchInput" onKeyUp={searchNameFunc} />
+        <input placeholder={getLocalizedString('startTypingName')} id="searchInput"
+               onKeyUp={()=>searchNameFunc} />
       </div>
 
-      <table id="table" className={'centered highlight'}>
+      <table style={{borderTop:'1px solid grey'}} id="table" className={'centered highlight'}>
         <thead>
           <tr>
             <th>{getLocalizedString('selected')}</th>

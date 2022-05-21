@@ -2,6 +2,14 @@
 @import 'styles/mixins.scss';
 @import 'styles/media.scss';
 
+body {
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .header {
   display: flex;
   align-items: center;
