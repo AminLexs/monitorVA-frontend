@@ -7,7 +7,7 @@ import { setCurrentContainerID } from 'handlers/containersManager';
 import { containerApi } from 'thunks';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from 'api/AccountApi';
-import { getShortContainersID } from 'utils/stringUtils';
+import {getDateFromString, getShortContainersID} from 'utils/stringUtils';
 import ReactConsole from '@webscopeio/react-console';
 import { useLocale } from 'utils/localeUtils';
 import EmailPicker from "components/EmailPicker";
@@ -84,7 +84,7 @@ const DetailContainer = () => {
         <>
           <h3>{`${currentContainerInfo.Name}
             (ID:${getShortContainersID(currentContainerInfo.Id)},
-             ${getLocalizedString('createDate')}${currentContainerInfo.Created})`}</h3>
+             ${getLocalizedString('createDate')}${getDateFromString(currentContainerInfo.Created)})`}</h3>
           <ul className="collection">
             <li className="collection-item avatar">
               <i className="material-icons circle red">play_arrow</i>
@@ -92,15 +92,15 @@ const DetailContainer = () => {
               <p>
                 {' '}
                 {getLocalizedString('statusWithTwoDots')}
-                {currentContainerInfo.State.Status}
+                {getLocalizedString(currentContainerInfo.State.Status)}
                 <br />
                 PID: {currentContainerInfo.State.Pid}
                 <br />
                 {getLocalizedString('startedAt')}
-                {currentContainerInfo.State.StartedAt}
+                {getDateFromString(currentContainerInfo.State.StartedAt)}
                 <br />
                 {getLocalizedString('finishedAt')}
-                {currentContainerInfo.State.FinishedAt}
+                {getDateFromString(currentContainerInfo.State.FinishedAt)}
                 <br />
               </p>
               <a className="secondary-content">
@@ -155,7 +155,7 @@ const DetailContainer = () => {
                 {getLocalizedString('image')}: {currentContainerInfo.Config.Image}
                 <br />
                 {getLocalizedString('volumes')}
-                {currentContainerInfo.Config.Volumes ?? 'null'}
+                {currentContainerInfo.Config.Volumes ?? getLocalizedString('empty')}
                 <br />
                 {getLocalizedString('other')}
                 <br />

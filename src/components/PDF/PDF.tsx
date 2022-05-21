@@ -2,9 +2,13 @@ import React, { Fragment } from 'react';
 import { Page, Image, Text, View, Document as PDFDocument, StyleSheet, Font } from '@react-pdf/renderer';
 
 Font.register({
-  family: 'Roboto',
+  family: 'RobotoBold',
   src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf',
 });
+Font.register({
+  family: 'Sans',
+  src: 'https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3aPw.ttf',
+})
 // Create styles
 const styles = StyleSheet.create({
   page: {
@@ -21,8 +25,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  header: {
+    fontFamily: 'RobotoBold',
+    fontSize: '21px',
+    textAlign: 'center',
+  },
   text: {
-    fontFamily: 'Roboto',
+    fontFamily: 'Sans',
     fontSize: '14px',
     marginLeft: '30px',
     marginBottom: '20px',
@@ -96,8 +105,8 @@ const Document = ({ chartURLs, getLocalizedString, stats }: DocumentProps) => {
         return(
             <Page key={containerData.name} size="A4" style={styles.page}>
               <View style={styles.section}>
+                <Text style={styles.header}>{containerData.name}</Text>
                 <Text style={styles.text}>
-                  {containerData.name}
                   {containerData.info}
                 </Text>
                 <View style={styles.sectionGraphics}>

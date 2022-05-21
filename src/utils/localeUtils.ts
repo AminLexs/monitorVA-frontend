@@ -118,6 +118,7 @@ enum EnglishLocale {
   admin = 'Admin',
   user = 'User',
   registration = 'Registration',
+  empty = 'Empty',
 }
 
 enum RussianLocale {
@@ -218,6 +219,7 @@ enum RussianLocale {
   admin = 'Администратор',
   user = 'Пользователь',
   registration = 'Регистрация',
+  empty = 'пусто',
 }
 // Созданных
 // Работающих
