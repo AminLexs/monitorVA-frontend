@@ -107,6 +107,16 @@ enum EnglishLocale {
   eventKill = 'Event \'Kill\'',
   eventStart = 'Event \'Start\'',
   eventRestart = 'Event \'Restart\'',
+  userManager = 'User manager',
+  management = 'Management',
+  users = 'Users',
+  email = 'Email',
+  password = 'Password',
+  userEmail = 'User email',
+  changeUserRole = 'Change user role',
+  deleteUser = 'Delete user',
+  admin = 'Admin',
+  user = 'User',
 }
 
 enum RussianLocale {
@@ -197,6 +207,15 @@ enum RussianLocale {
   eventKill = 'Событие \'Kill\'',
   eventStart = 'Событие \'Start\'',
   eventRestart = 'Событие \'Restart\'',
+  management = 'Управление',
+  users = 'Пользователи',
+  email = 'Электронная почта',
+  password = 'Пароль',
+  userEmail = 'Электронная почта пользователя',
+  changeUserRole = 'Смена роли',
+  deleteUser = 'Удалить пользователя',
+  admin = 'Администратор',
+  user = 'Пользователь',
 }
 // Созданных
 // Работающих

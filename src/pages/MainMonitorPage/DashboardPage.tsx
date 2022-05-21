@@ -13,6 +13,8 @@ import ContainersMonitor from './steps/ContainersMonitor';
 import Reporting from './steps/Reporting';
 import DetailContainer from './steps/DetailContainer/DetailContainer';
 import EditContainer from "./steps/EditContainer";
+import UserManager from './steps/UserManager';
+
 
 const getPageByStep = (step: DashboardStep | null) => {
   switch (step) {
@@ -33,6 +35,9 @@ const getPageByStep = (step: DashboardStep | null) => {
 
     case DashboardStep.EditContainer:
       return <EditContainer />;
+
+    case DashboardStep.UserManager:
+      return <UserManager />;
 
     default:
       return <ContainersList />;
