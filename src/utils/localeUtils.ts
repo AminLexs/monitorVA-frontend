@@ -54,7 +54,7 @@ enum EnglishLocale {
   dead = 'Dead',
   addImage = 'Add image',
   deleteImage = 'Delete image',
-  chooseImageOrStartWritting = 'Choose image or start typing',
+  chooseImageOrStartWritting = 'Choose image or start typing...',
   version = 'Version',
   cpuUsage = 'CPU usage',
   cpu = 'CPU',
@@ -119,6 +119,7 @@ enum EnglishLocale {
   user = 'User',
   registration = 'Registration',
   empty = 'Empty',
+  chooseContainerOrStartWritting = 'Choose container or start typing...',
 }
 
 enum RussianLocale {
@@ -220,6 +221,7 @@ enum RussianLocale {
   user = 'Пользователь',
   registration = 'Регистрация',
   empty = 'пусто',
+  chooseContainerOrStartWritting = 'Выберите контейнер или начните вводить',
 }
 // Созданных
 // Работающих
