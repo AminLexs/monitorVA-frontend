@@ -36,14 +36,14 @@ const UserManager = () =>{
                 <tbody>
                     <tr>
                         <td>
-                            ya.eto@mail.ru
+                            monitor.admin@mail.ru
                         </td>
                         <td>
-                           <SimpleSelect
-                               options={roles}
-                               onChange={()=>{}}
-                               menuPlacement={'bottom'}
-                           />
+                            <SimpleSelect
+                                options={roles}
+                                onChange={()=>{}}
+                                menuPlacement={'bottom'}
+                            />
                         </td>
                         <td>
                             <button className="btn">Удалить</button>

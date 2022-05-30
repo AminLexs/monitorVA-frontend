@@ -81,26 +81,22 @@ const Reporting = () => {
                 <div style={{display:"flex",gap:"10px"}}>
                   <label>
                     <input type="checkbox" />
-                    <span>{getLocalizedString('eventDestroy')}</span>
+                    <span>Подробная информация о контейнерах</span>
                   </label>
                   <label>
                     <input type="checkbox" />
-                    <span>{getLocalizedString('eventDie')}</span>
+                    <span>Диаграмма затраченных ресурсов контейнера</span>
                   </label>
                   <label>
                     <input type="checkbox" />
-                    <span>{getLocalizedString('eventKill')}</span>
+                    <span>Диаграмма истории состояний контейнеров</span>
                   </label>
                   <label>
                     <input type="checkbox" />
-                    <span>{getLocalizedString('eventStart')}</span>
-                  </label>
-                  <label>
-                    <input type="checkbox" />
-                    <span>{getLocalizedString('eventRestart')}</span>
+                    <span>Диаграмма текущего состояния контейнеров</span>
                   </label>
                 </div>
-                <button style={{width:'30%'}} onClick={()=>{setCreatePDF(true)}} className="btn">Create</button>
+                <button style={{width:'30%'}} onClick={()=>{setCreatePDF(true)}} className="btn">Создать</button>
               </>)
               : null}
           {pdfData ? (

@@ -136,32 +136,37 @@ const ContainersList = () => {
           <SimplePopup openPopup={openPopup} onClosePopup={closeModal}>
             <div className="input-field inline">
               <input
+                name="container_name"
                 id="container_name"
                 type="text"
                 onChange={(event) => dispatch(setContainerName(event.target.value))}
               />
-              <label htmlFor="email_inline">{getLocalizedString('containerName')}</label>
+              <label htmlFor="container_name">{getLocalizedString('containerName')}</label>
             </div>
             <AsyncSelect
               placeholder={getLocalizedString('chooseImageOrStartWritting')}
               onChange={(event) => {
-                dispatch(setImageName(event!.value));
+                dispatch(setImageName(event!.value));loadImagesPromise
               }}
               cacheOptions
               defaultOptions
               loadOptions={loadImagesPromise}
             />
             <div className="input-field inline">
-              <input id="public_port" type="number" onChange={(event) => dispatch(setPublicPort(event.target.value))} />
-              <label htmlFor="email_inline">{getLocalizedString('publicPort')}</label>
+              <input name="public_port"
+                     id="public_port"
+                     type="number"
+                     onChange={(event) => dispatch(setPublicPort(event.target.value))} />
+              <label htmlFor="public_port">{getLocalizedString('publicPort')}</label>
             </div>
             <div className="input-field inline">
               <input
+                  name="private_port"
                 id="private_port"
                 type="number"
                 onChange={(event) => dispatch(setPrivatePort(event.target.value))}
               />
-              <label htmlFor="email_inline">{getLocalizedString('privatePort')}</label>
+              <label htmlFor="private_port">{getLocalizedString('privatePort')}</label>
             </div>
             <button
               className="btn"

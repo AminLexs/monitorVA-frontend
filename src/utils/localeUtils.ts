@@ -120,6 +120,14 @@ enum EnglishLocale {
   registration = 'Registration',
   empty = 'Empty',
   chooseContainerOrStartWritting = 'Choose container or start typing...',
+  cpuUsageLimit = 'CPU usage limit',
+  memoryUsageLimit = 'Memory usage limit',
+  countRestart = 'Count restart',
+  domainname = 'Domain name',
+  hostname = 'Host name',
+  update = 'Update',
+  recreate = 'Recreate',
+  healthCheckCommand = 'Health check command'
 }
 
 enum RussianLocale {
@@ -222,6 +230,14 @@ enum RussianLocale {
   registration = 'Регистрация',
   empty = 'пусто',
   chooseContainerOrStartWritting = 'Выберите контейнер или начните вводить',
+  cpuUsageLimit = 'Относительная нагрузка CPU',
+  memoryUsageLimit = 'Лимит использования памяти',
+  countRestart = 'Количество перезапусков',
+  domainname = 'Доменное имя',
+  hostname = 'Серверное имя',
+  update = 'Обновить',
+  recreate = 'Пересоздать',
+  healthCheckCommand = 'Команда проверки работоспособности'
 }
 // Созданных
 // Работающих

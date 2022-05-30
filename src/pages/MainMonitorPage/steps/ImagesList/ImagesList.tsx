@@ -69,8 +69,8 @@ const ImagesList = () => {
           />
           <SimplePopup openPopup={openPopup} onClosePopup={closeModal}>
             <div className="input-field inline">
-              <input id="image_name" type="text" onChange={(event) => setImageName(event.target.value.toLowerCase())} />
-              <label htmlFor="email_inline">{getLocalizedString('imageName')}</label>
+              <input name="image_name" id="image_name" type="text" onChange={(event) => setImageName(event.target.value.toLowerCase())} />
+              <label htmlFor="image_name">{getLocalizedString('imageName')}</label>
             </div>
             <input
               accept={'.tar'}
@@ -87,6 +87,7 @@ const ImagesList = () => {
             {fileInputData && imageName && (
               <button
                 className="btn"
+                style={{marginTop:"10px"}}
                 onClick={() => {
                   imageApi.uploadArchiveImage(user, fileInputData, imageName).then(() => {
                     getImages(user);
@@ -94,7 +95,7 @@ const ImagesList = () => {
                   });
                 }}
               >
-                Save
+                Сохранить
               </button>
             )}
           </SimplePopup>

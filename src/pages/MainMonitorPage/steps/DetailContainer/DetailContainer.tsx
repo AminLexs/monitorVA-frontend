@@ -58,7 +58,7 @@ const DetailContainer = () => {
       {currentContainerInfo && consoleOpen && (
         <ReactConsole
           autoFocus
-          welcomeMessage="Welcome"
+          welcomeMessage="Добро пожаловать в консоль контейнера"
           commands={{
             test: {
               description: 'Test',
