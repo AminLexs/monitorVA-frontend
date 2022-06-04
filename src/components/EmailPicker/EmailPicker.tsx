@@ -9,14 +9,14 @@ const isEmail = (email:string) => {
     return /[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/.test(email);
 }
 interface EmailPickerProps {
+    items: Array<string>
+    setItems: React.Dispatch<React.SetStateAction<string[]>>
     getLocalizedString: (key:string)=>string
-    initialItems: Array<string>
     onChange: (items:Array<string>)=>void
 }
 
-const EmailPicker = ({getLocalizedString, initialItems,onChange}:EmailPickerProps)=>{
+const EmailPicker = ({items,setItems,getLocalizedString,onChange}:EmailPickerProps)=>{
     const [value, setValue] = useState('')
-    const [items, setItems] = useState<Array<string>>(initialItems)
     const [error, setError] = useState<string | null>(null)
 
     useEffect(()=>{

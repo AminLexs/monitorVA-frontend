@@ -107,6 +107,7 @@ enum EnglishLocale {
   eventKill = 'Event \'Kill\'',
   eventStart = 'Event \'Start\'',
   eventRestart = 'Event \'Restart\'',
+  eventStop = 'Event \'Stop\'',
   userManager = 'User manager',
   management = 'Management',
   users = 'Users',
@@ -127,7 +128,8 @@ enum EnglishLocale {
   hostname = 'Host name',
   update = 'Update',
   recreate = 'Recreate',
-  healthCheckCommand = 'Health check command'
+  healthCheckCommand = 'Health check command',
+  refresh = 'Refresh',
 }
 
 enum RussianLocale {
@@ -218,6 +220,7 @@ enum RussianLocale {
   eventKill = 'Событие \'Kill\'',
   eventStart = 'Событие \'Start\'',
   eventRestart = 'Событие \'Restart\'',
+  eventStop = 'Событие \'Stop\'',
   management = 'Управление',
   users = 'Пользователи',
   email = 'Электронная почта',
@@ -237,7 +240,8 @@ enum RussianLocale {
   hostname = 'Серверное имя',
   update = 'Обновить',
   recreate = 'Пересоздать',
-  healthCheckCommand = 'Команда проверки работоспособности'
+  healthCheckCommand = 'Команда проверки работоспособности',
+  refresh = 'Обновить',
 }
 // Созданных
 // Работающих

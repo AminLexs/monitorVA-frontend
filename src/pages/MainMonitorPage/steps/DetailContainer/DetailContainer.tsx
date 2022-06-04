@@ -11,6 +11,7 @@ import {getDateFromString, getShortContainersID} from 'utils/stringUtils';
 import ReactConsole from '@webscopeio/react-console';
 import { useLocale } from 'utils/localeUtils';
 import EmailPicker from "components/EmailPicker";
+import {ObserverOptions} from "api/ContainerApi";
 
 import styles from './DetailContainer.module.scss';
 
@@ -21,6 +22,7 @@ const DetailContainer = () => {
   const [consoleOpen, setConsoleOpen] = useState(false);
   const [logsOpen, setLogsOpen] = useState(false);
   const [logsData, setLogsData] = useState('');
+  const [selectedEmailForObserve, setSelectedEmailForObserve] = useState<Array<string>>([]);
 
   const { getLocalizedString } = useLocale();
   const dispatch = useDispatch();
@@ -50,6 +52,43 @@ const DetailContainer = () => {
 
   const handleEditClick = () => {
     dispatch(setDashboardStep(DashboardStep.EditContainer))
+  }
+
+  const handleUpdateObserver = async () => {
+    const isOn =  (document.getElementById('observerOnSwitch') as HTMLInputElement).checked
+    const eventDestroy =  (document.getElementById('eventDestroy') as HTMLInputElement).checked
+    const eventDie =  (document.getElementById('eventDie') as HTMLInputElement).checked
+    const eventKill =  (document.getElementById('eventKill') as HTMLInputElement).checked
+    const eventStart =  (document.getElementById('eventStart') as HTMLInputElement).checked
+    const eventStop =  (document.getElementById('eventStop') as HTMLInputElement).checked
+    const eventRestart =  (document.getElementById('eventRestart') as HTMLInputElement).checked
+    const observerOptions: ObserverOptions = {
+      emails: selectedEmailForObserve,
+      onDestroy: eventDestroy,
+      onDie: eventDie,
+      onKill: eventKill,
+      onStart: eventStart,
+      onStop: eventStop,
+      onRestart: eventRestart,
+      isOn: isOn,
+    }
+
+   await containerApi.updateObserverSettings(user,currentContainerInfo.Id, observerOptions)
+  }
+
+  const handleRefreshSettingsObserver = async ()=> {
+    const observeSettings = (await containerApi.getObserverSettings(user, currentContainerInfo.Id) as any).data;
+    if (observeSettings) {
+      console.log(observeSettings.emails)
+      setSelectedEmailForObserve(observeSettings.emails);
+      (document.getElementById('eventDestroy') as HTMLInputElement).checked = observeSettings.onDestroy;
+      (document.getElementById('eventDie') as HTMLInputElement).checked = observeSettings.onDie;
+      (document.getElementById('eventKill') as HTMLInputElement).checked = observeSettings.onKill;
+      (document.getElementById('eventStart') as HTMLInputElement).checked = observeSettings.onStart;
+      (document.getElementById('eventStop') as HTMLInputElement).checked = observeSettings.onStop;
+      (document.getElementById('eventRestart') as HTMLInputElement).checked = observeSettings.onRestart;
+      (document.getElementById('observerOnSwitch') as HTMLInputElement).checked = observeSettings.isOn;
+    }
   }
 
   return (
@@ -183,32 +222,42 @@ const DetailContainer = () => {
                 <br />
               </p>
             </li>
-            <li className="collection-item avatar">
+            <li style={{display:"flex", flexDirection:'column', gap:'15px'}}
+                className="collection-item avatar">
               <i className="material-icons circle green">email</i>
               <span className="title">
                 {getLocalizedString('notification')}
               </span>
               <p>
-                <EmailPicker getLocalizedString={getLocalizedString} initialItems={[]} onChange={()=>{}}/>
+                <div style={{display:"flex", gap: "15px"}}>
+                <EmailPicker items={selectedEmailForObserve} setItems={setSelectedEmailForObserve} getLocalizedString={getLocalizedString} onChange={(items)=>{
+                  setSelectedEmailForObserve(items)
+                }}/>
+                <button onClick={handleRefreshSettingsObserver} style={{width:'20%'}} className="btn">{getLocalizedString('refresh')}</button>
+                </div>
                 <div style={{display:"flex",gap:"10px"}}>
                   <label>
-                    <input type="checkbox" />
+                    <input id="eventDestroy" type="checkbox" />
                     <span>{getLocalizedString('eventDestroy')}</span>
                   </label>
                   <label>
-                    <input type="checkbox" />
+                    <input id="eventDie" type="checkbox" />
                     <span>{getLocalizedString('eventDie')}</span>
                   </label>
                   <label>
-                    <input type="checkbox" />
+                    <input id="eventKill" type="checkbox" />
                     <span>{getLocalizedString('eventKill')}</span>
                   </label>
                   <label>
-                    <input type="checkbox" />
+                    <input id="eventStart"  type="checkbox" />
                     <span>{getLocalizedString('eventStart')}</span>
                   </label>
                   <label>
-                    <input type="checkbox" />
+                    <input id="eventStop"  type="checkbox" />
+                    <span>{getLocalizedString('eventStop')}</span>
+                  </label>
+                  <label>
+                    <input id="eventRestart" type="checkbox" />
                     <span>{getLocalizedString('eventRestart')}</span>
                   </label>
                 </div>
@@ -217,11 +266,13 @@ const DetailContainer = () => {
               <div className="switch">
                 <label>
                   {getLocalizedString('off')}
-                  <input type="checkbox"/>
+                  <input id="observerOnSwitch" type="checkbox"/>
                     <span className="lever"/>
                   {getLocalizedString('on')}
                 </label>
               </div>
+              <button onClick={handleUpdateObserver} style={{width:'40%'}} className="btn">{getLocalizedString('save')}</button>
+
             </li>
             <li className="collection-item avatar">
               <i className="material-icons circle green">create</i>

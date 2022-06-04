@@ -2,15 +2,16 @@ import { accountApi } from 'thunks';
 import { CreateContainerForm } from 'handlers/createContainerForm';
 
 import Api, { FetchMethodType } from './Api';
-// interface ContainerData {
-//   name: string;
-//   image: string;
-//   status: number;
-//   publicPort: number;
-//   privatePort: string;
-//   created: string;
-//   Id: string;
-// }
+export interface ObserverOptions {
+  emails: string[],
+  onDestroy: boolean,
+  onDie: boolean,
+  onKill: boolean,
+  onStart: boolean,
+  onStop: boolean,
+  onRestart: boolean,
+  isOn: boolean,
+}
 
 export default class ContainerApi extends Api {
   public async createContainer(user: any, containerOptions: CreateContainerForm) {
@@ -147,6 +148,28 @@ export default class ContainerApi extends Api {
       headers: headers,
       method: FetchMethodType.POST,
       body: { containersId: containersId, lang: lang },
+    });
+  }
+
+  public async updateObserverSettings(user: any, containerId: string, options:ObserverOptions) {
+    const token = await accountApi.GetToken(user);
+    const headers = new Headers();
+    headers.set('token', token);
+    return this.fetch(`/containers/observers`, {
+      headers: headers,
+      method: FetchMethodType.PUT,
+      body: { containerId: containerId, options},
+    });
+  }
+
+  public async getObserverSettings(user: any, containerId: string) {
+    const token = await accountApi.GetToken(user);
+    const headers = new Headers();
+    headers.set('token', token);
+    headers.set('containerId', containerId)
+    return this.fetch(`/containers/observer`, {
+      headers: headers,
+      method: FetchMethodType.GET,
     });
   }
 }
