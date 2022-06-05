@@ -80,7 +80,9 @@ const SimpleSelect = ({ onChange, options, firstValue, menuPlacement = 'top' }: 
       onInputChange={(input) => {
         setInputValue(input);
       }}
-      value={value ? (getLocalizedOptionType(value) as OptionType) : firstValue}
+      value={
+        value ? (getLocalizedOptionType(value) as OptionType) : (getLocalizedOptionType(firstValue!) as OptionType)
+      }
       inputValue={inputValue}
       onMenuOpen={() => {}}
       options={options.map((option) => getLocalizedOptionType(option))}

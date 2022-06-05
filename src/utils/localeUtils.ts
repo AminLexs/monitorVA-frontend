@@ -141,6 +141,9 @@ enum EnglishLocale {
   chartHistoryStateContainers = 'Chart history containers states',
   chartCurrentStateContainers = 'Chart current containers states',
   notSelectedContainersOrParams = 'Not selected containers or parameters for report',
+  delete = 'Delete',
+  incorrectEmailOrPass = 'Incorrect email or password',
+  thisEmailAlreadyInUse = 'This email already in use',
 }
 
 enum RussianLocale {
@@ -264,6 +267,9 @@ enum RussianLocale {
   chartHistoryStateContainers = 'Диаграмма истории состояний контейнеров',
   chartCurrentStateContainers = 'Диаграмма текущего состояния контейнеров',
   notSelectedContainersOrParams = 'Не выбраны контейнеры или параметры отчёта',
+  delete = 'Удалить',
+  incorrectEmailOrPass = 'Неверная почта или пароль',
+  thisEmailAlreadyInUse = 'Эта почта уже используется',
 }
 // Созданных
 // Работающих

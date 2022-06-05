@@ -52,8 +52,9 @@ const ImagesList = () => {
 
   return (
     <div>
-      {loading && <Loading />}
-      {!loading && images.length !== 0 && (
+      {loading ? (
+        <Loading />
+      ) : (
         <div>
           <button className="btn blue darken-1" onClick={() => setOpenPopup((o) => !o)}>
             {getLocalizedString('addImage')}

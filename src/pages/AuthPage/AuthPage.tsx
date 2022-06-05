@@ -6,14 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setSidebar } from 'handlers/ui';
 import { setUser } from 'handlers/auth';
-
-const emailCorrect = (email: string) => {
-  return email
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-    );
-};
+import { emailCorrect } from 'utils/stringUtils';
 
 const passwordCorrect = (password: string) => {
   return password.length > 5;
