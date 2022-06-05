@@ -1,7 +1,9 @@
 import { accountApi } from 'thunks';
 import { CreateContainerForm } from 'handlers/createContainerForm';
+import { PDFParams } from 'pages/MainMonitorPage/steps/Reporting/Reporting';
 
 import Api, { FetchMethodType } from './Api';
+
 export interface ObserverOptions {
   emails: string[];
   onDestroy: boolean;
@@ -140,14 +142,14 @@ export default class ContainerApi extends Api {
     });
   }
 
-  public async getPDFsDataContainers(user: any, containersId: Array<string>, lang: string) {
+  public async getPDFsDataContainers(user: any, containersId: Array<string>, pdfParams: PDFParams, lang: string) {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
     return this.fetch(`/containers/pdf`, {
       headers: headers,
       method: FetchMethodType.POST,
-      body: { containersId: containersId, lang: lang },
+      body: { containersId: containersId, pdfParams: pdfParams, lang: lang },
     });
   }
 

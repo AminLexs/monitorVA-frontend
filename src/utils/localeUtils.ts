@@ -136,6 +136,11 @@ enum EnglishLocale {
   noImages = 'No images',
   loading = 'Loading',
   checkPorts = 'Error creating. Check ports.',
+  detailContainersInfo = "Detail container's information",
+  chartsUsedResourceContainers = 'Chart used containers resource',
+  chartHistoryStateContainers = 'Chart history containers states',
+  chartCurrentStateContainers = 'Chart current containers states',
+  notSelectedContainersOrParams = 'Not selected containers or parameters for report',
 }
 
 enum RussianLocale {
@@ -254,6 +259,11 @@ enum RussianLocale {
   noImages = 'Нет образов',
   loading = 'Загрузка',
   checkPorts = 'Ошибка создания. Проверьте порты.',
+  detailContainersInfo = 'Подробная информация о контейнерах',
+  chartsUsedResourceContainers = 'Диаграмма затраченных ресурсов контейнера',
+  chartHistoryStateContainers = 'Диаграмма истории состояний контейнеров',
+  chartCurrentStateContainers = 'Диаграмма текущего состояния контейнеров',
+  notSelectedContainersOrParams = 'Не выбраны контейнеры или параметры отчёта',
 }
 // Созданных
 // Работающих
