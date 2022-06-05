@@ -32,9 +32,9 @@ export default class AccountApi {
       try {
         await signInWithEmailAndPassword(auth, email, password);
       } catch (err: any) {
-        if (err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found'){
+        if (err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
           alert('Электронная почта и/или пароль неверны');
-        }else{
+        } else {
           alert(err.message);
         }
         console.error(err);

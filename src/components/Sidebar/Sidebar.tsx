@@ -81,22 +81,22 @@ const Sidebar = () => {
         <div className="divider" />
       </li>
 
-        <li>
-            <a className="subheader">{getLocalizedString('users')}</a>
-        </li>
-        <li>
-            <a
-                className="waves-effect"
-                onClick={() => {
-                    dispatch(setDashboardStep(DashboardStep.UserManager));
-                }}
-            >
-                {getLocalizedString('management')}
-            </a>
-        </li>
-        <li>
-            <div className="divider" />
-        </li>
+      <li>
+        <a className="subheader">{getLocalizedString('users')}</a>
+      </li>
+      <li>
+        <a
+          className="waves-effect"
+          onClick={() => {
+            dispatch(setDashboardStep(DashboardStep.UserManager));
+          }}
+        >
+          {getLocalizedString('management')}
+        </a>
+      </li>
+      <li>
+        <div className="divider" />
+      </li>
       <li>
         <a>
           <i style={{ marginRight: '16px' }} className={'material-icons'}>
@@ -122,9 +122,9 @@ const Sidebar = () => {
           </button>
         </a>
       </li>
-        <li>
-            <div className="divider" />
-        </li>
+      <li>
+        <div className="divider" />
+      </li>
       <li>
         <a className="waves-effect red darken-3 btn" onClick={accountApi.LogOut}>
           {getLocalizedString('logOut')}

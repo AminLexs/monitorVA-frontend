@@ -30,10 +30,9 @@ import { bytesToGigabytes, bytesToKilobytes, bytesToMegabytes, bytesToTerabytes 
 import { MemoryType } from 'enums/MemoryType';
 import SimpleSelect from 'components/SimpleSelect';
 import { getOptionsFromArrayString, OptionType } from 'utils/selectUtils';
-import clsx from "clsx";
+import clsx from 'clsx';
 
 import styles from './Line.module.scss';
-
 
 ChartJS.register(
   CategoryScale,

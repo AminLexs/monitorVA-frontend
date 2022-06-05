@@ -3,7 +3,7 @@ import { useContainersId } from 'hooks/useContainersId';
 import LineWithType from 'components/Graphics/Line';
 import { GraphicsType } from 'enums/GraphicsType';
 
-import styles from './ContainersMonitor.module.scss'
+import styles from './ContainersMonitor.module.scss';
 
 const ContainersMonitor = () => {
   const containersId = useContainersId();

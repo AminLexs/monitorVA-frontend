@@ -7,11 +7,11 @@ import { setCurrentContainerID } from 'handlers/containersManager';
 import { containerApi } from 'thunks';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from 'api/AccountApi';
-import {getDateFromString, getShortContainersID} from 'utils/stringUtils';
+import { getDateFromString, getShortContainersID } from 'utils/stringUtils';
 import ReactConsole from '@webscopeio/react-console';
 import { useLocale } from 'utils/localeUtils';
-import EmailPicker from "components/EmailPicker";
-import {ObserverOptions} from "api/ContainerApi";
+import EmailPicker from 'components/EmailPicker';
+import { ObserverOptions } from 'api/ContainerApi';
 
 import styles from './DetailContainer.module.scss';
 
@@ -51,17 +51,17 @@ const DetailContainer = () => {
   };
 
   const handleEditClick = () => {
-    dispatch(setDashboardStep(DashboardStep.EditContainer))
-  }
+    dispatch(setDashboardStep(DashboardStep.EditContainer));
+  };
 
   const handleUpdateObserver = async () => {
-    const isOn =  (document.getElementById('observerOnSwitch') as HTMLInputElement).checked
-    const eventDestroy =  (document.getElementById('eventDestroy') as HTMLInputElement).checked
-    const eventDie =  (document.getElementById('eventDie') as HTMLInputElement).checked
-    const eventKill =  (document.getElementById('eventKill') as HTMLInputElement).checked
-    const eventStart =  (document.getElementById('eventStart') as HTMLInputElement).checked
-    const eventStop =  (document.getElementById('eventStop') as HTMLInputElement).checked
-    const eventRestart =  (document.getElementById('eventRestart') as HTMLInputElement).checked
+    const isOn = (document.getElementById('observerOnSwitch') as HTMLInputElement).checked;
+    const eventDestroy = (document.getElementById('eventDestroy') as HTMLInputElement).checked;
+    const eventDie = (document.getElementById('eventDie') as HTMLInputElement).checked;
+    const eventKill = (document.getElementById('eventKill') as HTMLInputElement).checked;
+    const eventStart = (document.getElementById('eventStart') as HTMLInputElement).checked;
+    const eventStop = (document.getElementById('eventStop') as HTMLInputElement).checked;
+    const eventRestart = (document.getElementById('eventRestart') as HTMLInputElement).checked;
     const observerOptions: ObserverOptions = {
       emails: selectedEmailForObserve,
       onDestroy: eventDestroy,
@@ -71,15 +71,15 @@ const DetailContainer = () => {
       onStop: eventStop,
       onRestart: eventRestart,
       isOn: isOn,
-    }
+    };
 
-   await containerApi.updateObserverSettings(user,currentContainerInfo.Id, observerOptions)
-  }
+    await containerApi.updateObserverSettings(user, currentContainerInfo.Id, observerOptions);
+  };
 
-  const handleRefreshSettingsObserver = async ()=> {
-    const observeSettings = (await containerApi.getObserverSettings(user, currentContainerInfo.Id) as any).data;
+  const handleRefreshSettingsObserver = async () => {
+    const observeSettings = ((await containerApi.getObserverSettings(user, currentContainerInfo.Id)) as any).data;
     if (observeSettings) {
-      console.log(observeSettings.emails)
+      console.log(observeSettings.emails);
       setSelectedEmailForObserve(observeSettings.emails);
       (document.getElementById('eventDestroy') as HTMLInputElement).checked = observeSettings.onDestroy;
       (document.getElementById('eventDie') as HTMLInputElement).checked = observeSettings.onDie;
@@ -89,7 +89,7 @@ const DetailContainer = () => {
       (document.getElementById('eventRestart') as HTMLInputElement).checked = observeSettings.onRestart;
       (document.getElementById('observerOnSwitch') as HTMLInputElement).checked = observeSettings.isOn;
     }
-  }
+  };
 
   return (
     <div>
@@ -176,9 +176,7 @@ const DetailContainer = () => {
                 {getLocalizedString('maximumRetryCount')}
                 {currentContainerInfo.HostConfig.RestartPolicy.MaximumRetryCount}
               </p>
-              <button className="btn">
-                {getLocalizedString('edit')}
-              </button>
+              <button className="btn">{getLocalizedString('edit')}</button>
             </li>
             <li className="collection-item avatar">
               <i className="material-icons circle">folder</i>
@@ -222,20 +220,24 @@ const DetailContainer = () => {
                 <br />
               </p>
             </li>
-            <li style={{display:"flex", flexDirection:'column', gap:'15px'}}
-                className="collection-item avatar">
+            <li style={{ display: 'flex', flexDirection: 'column', gap: '15px' }} className="collection-item avatar">
               <i className="material-icons circle green">email</i>
-              <span className="title">
-                {getLocalizedString('notification')}
-              </span>
+              <span className="title">{getLocalizedString('notification')}</span>
               <p>
-                <div style={{display:"flex", gap: "15px"}}>
-                <EmailPicker items={selectedEmailForObserve} setItems={setSelectedEmailForObserve} getLocalizedString={getLocalizedString} onChange={(items)=>{
-                  setSelectedEmailForObserve(items)
-                }}/>
-                <button onClick={handleRefreshSettingsObserver} style={{width:'20%'}} className="btn">{getLocalizedString('refresh')}</button>
+                <div style={{ display: 'flex', gap: '15px' }}>
+                  <EmailPicker
+                    items={selectedEmailForObserve}
+                    setItems={setSelectedEmailForObserve}
+                    getLocalizedString={getLocalizedString}
+                    onChange={(items) => {
+                      setSelectedEmailForObserve(items);
+                    }}
+                  />
+                  <button onClick={handleRefreshSettingsObserver} style={{ width: '20%' }} className="btn">
+                    {getLocalizedString('refresh')}
+                  </button>
                 </div>
-                <div style={{display:"flex",gap:"10px"}}>
+                <div style={{ display: 'flex', gap: '10px' }}>
                   <label>
                     <input id="eventDestroy" type="checkbox" />
                     <span>{getLocalizedString('eventDestroy')}</span>
@@ -249,11 +251,11 @@ const DetailContainer = () => {
                     <span>{getLocalizedString('eventKill')}</span>
                   </label>
                   <label>
-                    <input id="eventStart"  type="checkbox" />
+                    <input id="eventStart" type="checkbox" />
                     <span>{getLocalizedString('eventStart')}</span>
                   </label>
                   <label>
-                    <input id="eventStop"  type="checkbox" />
+                    <input id="eventStop" type="checkbox" />
                     <span>{getLocalizedString('eventStop')}</span>
                   </label>
                   <label>
@@ -261,26 +263,24 @@ const DetailContainer = () => {
                     <span>{getLocalizedString('eventRestart')}</span>
                   </label>
                 </div>
-
               </p>
               <div className="switch">
                 <label>
                   {getLocalizedString('off')}
-                  <input id="observerOnSwitch" type="checkbox"/>
-                    <span className="lever"/>
+                  <input id="observerOnSwitch" type="checkbox" />
+                  <span className="lever" />
                   {getLocalizedString('on')}
                 </label>
               </div>
-              <button onClick={handleUpdateObserver} style={{width:'40%'}} className="btn">{getLocalizedString('save')}</button>
-
+              <button onClick={handleUpdateObserver} style={{ width: '40%' }} className="btn">
+                {getLocalizedString('save')}
+              </button>
             </li>
             <li className="collection-item avatar">
               <i className="material-icons circle green">create</i>
               <span onClick={handleEditClick} className="title">
-                <button className="btn">
-                  {getLocalizedString('edit')}
-                </button></span>
-
+                <button className="btn">{getLocalizedString('edit')}</button>
+              </span>
             </li>
           </ul>
         </>

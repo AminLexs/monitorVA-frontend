@@ -20,6 +20,8 @@ const ImagesList = () => {
   const [selectedImages, setSelectedImages] = useState<Array<string>>([]);
   const [imageName, setImageName] = useState('');
   const { getLocalizedString } = useLocale();
+  const [errorImageName, setErrorImageName] = useState(false);
+  const [badImage, setBadImage] = useState(false);
   const { loading } = useSelector((state: RootState) => state.app.ui);
   const dispatch = useDispatch();
 
@@ -68,14 +70,26 @@ const ImagesList = () => {
             tableType={TableType.ImageTable}
           />
           <SimplePopup openPopup={openPopup} onClosePopup={closeModal}>
-            <div className="input-field inline">
-              <input name="image_name" id="image_name" type="text" onChange={(event) => setImageName(event.target.value.toLowerCase())} />
+            <div style={{ marginBottom: '0px' }} className="input-field inline">
+              <input
+                name="image_name"
+                id="image_name"
+                type="text"
+                onChange={(event) => {
+                  setImageName(event.target.value.toLowerCase());
+                  setErrorImageName(false);
+                }}
+              />
               <label htmlFor="image_name">{getLocalizedString('imageName')}</label>
             </div>
+            {errorImageName && (
+              <label style={{ color: 'red', marginBottom: '10px' }}>{getLocalizedString('errorImageName')}</label>
+            )}
             <input
               accept={'.tar'}
               name={'archiveImage'}
               onChange={(event) => {
+                setBadImage(false);
                 const files = event.target.files!;
                 const formData = new FormData();
                 formData.append('image', files[0]);
@@ -84,15 +98,21 @@ const ImagesList = () => {
               type={'file'}
               className="waves-effect waves-light btn"
             />
+            {badImage && <label style={{ color: 'red', marginBottom: '10px' }}>{getLocalizedString('badImage')}</label>}
             {fileInputData && imageName && (
               <button
                 className="btn"
-                style={{marginTop:"10px"}}
-                onClick={() => {
-                  imageApi.uploadArchiveImage(user, fileInputData, imageName).then(() => {
+                style={{ marginTop: '10px' }}
+                onClick={async () => {
+                  const checkNameResult = await imageApi.checkImageName(user, imageName);
+                  if (!checkNameResult) {
+                    const error = ((await imageApi.uploadArchiveImage(user, fileInputData, imageName)) as any).error;
+                    if (error) return setBadImage(true);
                     getImages(user);
                     closeModal();
-                  });
+                  } else {
+                    setErrorImageName(true);
+                  }
                 }}
               >
                 Сохранить

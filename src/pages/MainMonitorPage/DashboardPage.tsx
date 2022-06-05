@@ -12,9 +12,8 @@ import ImagesList from './steps/ImagesList';
 import ContainersMonitor from './steps/ContainersMonitor';
 import Reporting from './steps/Reporting';
 import DetailContainer from './steps/DetailContainer/DetailContainer';
-import EditContainer from "./steps/EditContainer";
+import EditContainer from './steps/EditContainer';
 import UserManager from './steps/UserManager';
-
 
 const getPageByStep = (step: DashboardStep | null) => {
   switch (step) {

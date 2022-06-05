@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Select, {MenuPlacement, SingleValue} from 'react-select';
+import Select, { MenuPlacement, SingleValue } from 'react-select';
 import { OptionType } from 'utils/selectUtils';
 import { useLocale } from 'utils/localeUtils';
 
@@ -60,7 +60,7 @@ const customStyles = {
   }),
 };
 
-const SimpleSelect = ({ onChange, options, firstValue, menuPlacement = "top" }: SimpleSelectProps) => {
+const SimpleSelect = ({ onChange, options, firstValue, menuPlacement = 'top' }: SimpleSelectProps) => {
   const [inputValue, setInputValue] = useState('');
   const [value, setValue] = useState<OptionType>();
   const { getLocalizedString } = useLocale();
@@ -74,7 +74,7 @@ const SimpleSelect = ({ onChange, options, firstValue, menuPlacement = "top" }: 
   return (
     <Select
       styles={customStyles}
-      menuPlacement = {menuPlacement}
+      menuPlacement={menuPlacement}
       onChange={handleOnChange}
       onMenuClose={() => {}}
       onInputChange={(input) => {

@@ -3,5 +3,5 @@ export const getShortContainersID = (id: string) => {
 };
 
 export const getDateFromString = (date: string) => {
-  return new Date(date).toLocaleString()
-}
+  return new Date(date).toLocaleString();
+};

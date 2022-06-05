@@ -8,11 +8,13 @@ export default class ImageApi extends Api {
     const headers = new Headers();
     headers.set('token', token);
     headers.set('imageName', imageName);
-    return fetch(`${API_URL}/images`, {
-      method: 'POST',
-      body: formData,
-      headers: headers,
-    });
+    return (
+      await fetch(`${API_URL}/images`, {
+        method: 'POST',
+        body: formData,
+        headers: headers,
+      })
+    ).json();
   }
 
   public async getImages(user: any) {
@@ -32,6 +34,17 @@ export default class ImageApi extends Api {
       headers: headers,
       method: FetchMethodType.DELETE,
       body: { imagesId: imagesId },
+    });
+  }
+
+  public async checkImageName(user: any, imageName: string) {
+    const token = await accountApi.GetToken(user);
+    const headers = new Headers();
+    headers.set('token', token);
+    headers.set('imageName', imageName);
+    return this.fetch(`/images/checkname`, {
+      headers: headers,
+      method: FetchMethodType.GET,
     });
   }
 }

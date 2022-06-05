@@ -1,4 +1,4 @@
-export const searchNameFunc = (searchColumn=1) => {
+export const searchNameFunc = (searchColumn = 1) => {
   let input, filter, table, tr, td, i;
   input = document.getElementById('searchInput') as HTMLInputElement;
   filter = input!.value.toUpperCase();

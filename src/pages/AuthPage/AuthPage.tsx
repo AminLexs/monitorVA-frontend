@@ -7,20 +7,21 @@ import { useDispatch } from 'react-redux';
 import { setSidebar } from 'handlers/ui';
 import { setUser } from 'handlers/auth';
 
-const emailCorrect = (email:string) => {
-  return email.toLowerCase()
-      .match(
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-}
+const emailCorrect = (email: string) => {
+  return email
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    );
+};
 
-const passwordCorrect = (password:string) => {
-  return password.length>5;
-}
+const passwordCorrect = (password: string) => {
+  return password.length > 5;
+};
 
-const formIsRight = (email:string, password:string) => {
-  return emailCorrect(email) && passwordCorrect(password)
-}
+const formIsRight = (email: string, password: string) => {
+  return emailCorrect(email) && passwordCorrect(password);
+};
 
 const AuthPage = () => {
   const dispatch = useDispatch();
@@ -50,37 +51,40 @@ const AuthPage = () => {
               <b>Электронная почта</b>
             </label>
             <input
-                type="text"
-                placeholder="Введите электронную почту"
-                name="uname"
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                }}
-                required
+              type="text"
+              placeholder="Введите электронную почту"
+              name="uname"
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
+              required
             />
-            {isSubmit && !emailCorrect(email) && <label style={{color:"red"} }>Введите корректную электронную почту</label>}
+            {isSubmit && !emailCorrect(email) && (
+              <label style={{ color: 'red' }}>Введите корректную электронную почту</label>
+            )}
           </div>
           <div>
             <label htmlFor="psw">
               <b>Пароль</b>
             </label>
             <input
-                type="password"
-                placeholder="Введите пароль"
-                name="psw"
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                }}
-                required
+              type="password"
+              placeholder="Введите пароль"
+              name="psw"
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
+              required
             />
-            {isSubmit && !passwordCorrect(password) && <label style={{color:"red"} }>Пароль должен быть больше 5 символов</label>}
+            {isSubmit && !passwordCorrect(password) && (
+              <label style={{ color: 'red' }}>Пароль должен быть больше 5 символов</label>
+            )}
           </div>
           <a
             className="waves-effect waves-light btn"
             onClick={() => {
-              setSubmit(true)
-              if (formIsRight(email,password))
-                accountApi.Authenticate(email, password);
+              setSubmit(true);
+              if (formIsRight(email, password)) accountApi.Authenticate(email, password);
             }}
           >
             Войти

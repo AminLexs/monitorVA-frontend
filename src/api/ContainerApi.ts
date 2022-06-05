@@ -3,14 +3,14 @@ import { CreateContainerForm } from 'handlers/createContainerForm';
 
 import Api, { FetchMethodType } from './Api';
 export interface ObserverOptions {
-  emails: string[],
-  onDestroy: boolean,
-  onDie: boolean,
-  onKill: boolean,
-  onStart: boolean,
-  onStop: boolean,
-  onRestart: boolean,
-  isOn: boolean,
+  emails: string[];
+  onDestroy: boolean;
+  onDie: boolean;
+  onKill: boolean;
+  onStart: boolean;
+  onStop: boolean;
+  onRestart: boolean;
+  isOn: boolean;
 }
 
 export default class ContainerApi extends Api {
@@ -151,14 +151,14 @@ export default class ContainerApi extends Api {
     });
   }
 
-  public async updateObserverSettings(user: any, containerId: string, options:ObserverOptions) {
+  public async updateObserverSettings(user: any, containerId: string, options: ObserverOptions) {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
     return this.fetch(`/containers/observers`, {
       headers: headers,
       method: FetchMethodType.PUT,
-      body: { containerId: containerId, options},
+      body: { containerId: containerId, options },
     });
   }
 
@@ -166,7 +166,7 @@ export default class ContainerApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
-    headers.set('containerId', containerId)
+    headers.set('containerId', containerId);
     return this.fetch(`/containers/observer`, {
       headers: headers,
       method: FetchMethodType.GET,

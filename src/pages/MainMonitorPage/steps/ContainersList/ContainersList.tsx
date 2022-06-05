@@ -26,6 +26,8 @@ const ContainersList = () => {
   const { imageName, containerName, publicPort, privatePort } = useSelector(
     (state: RootState) => state.app.createContainerForm,
   );
+  const [errorContainerName, setErrorContainerName] = useState(false);
+  const [errorCreatingContainer, setErrorCreatingContainer] = useState('');
   const { getLocalizedString } = useLocale();
   const { loading } = useSelector((state: RootState) => state.app.ui);
 
@@ -134,55 +136,84 @@ const ContainersList = () => {
             tableType={TableType.ContainerTable}
           />
           <SimplePopup openPopup={openPopup} onClosePopup={closeModal}>
-            <div className="input-field inline">
+            <div style={{ marginBottom: '0px' }} className="input-field inline">
               <input
                 name="container_name"
                 id="container_name"
                 type="text"
-                onChange={(event) => dispatch(setContainerName(event.target.value))}
+                onChange={(event) => {
+                  setErrorContainerName(false);
+                  dispatch(setContainerName(event.target.value));
+                }}
               />
               <label htmlFor="container_name">{getLocalizedString('containerName')}</label>
             </div>
+            {errorContainerName && (
+              <label style={{ color: 'red', marginBottom: '10px' }}>{getLocalizedString('errorContainerName')}</label>
+            )}
             <AsyncSelect
               placeholder={getLocalizedString('chooseImageOrStartWritting')}
               onChange={(event) => {
-                dispatch(setImageName(event!.value));loadImagesPromise
+                dispatch(setImageName(event!.value));
               }}
               cacheOptions
               defaultOptions
               loadOptions={loadImagesPromise}
+              noOptionsMessage={() => getLocalizedString('noImages')}
+              loadingMessage={() => getLocalizedString('loading')}
             />
             <div className="input-field inline">
-              <input name="public_port"
-                     id="public_port"
-                     type="number"
-                     onChange={(event) => dispatch(setPublicPort(event.target.value))} />
+              <input
+                name="public_port"
+                id="public_port"
+                type="number"
+                min={0}
+                max={65535}
+                onChange={(event) => {
+                  if (+event.target.value < 0) event.target.value = '0';
+                  if (+event.target.value > 65535) event.target.value = '65535';
+                  dispatch(setPublicPort(event.target.value));
+                }}
+              />
               <label htmlFor="public_port">{getLocalizedString('publicPort')}</label>
             </div>
             <div className="input-field inline">
               <input
-                  name="private_port"
+                name="private_port"
                 id="private_port"
                 type="number"
-                onChange={(event) => dispatch(setPrivatePort(event.target.value))}
+                min={0}
+                max={65535}
+                onChange={(event) => {
+                  if (+event.target.value < 0) event.target.value = '0';
+                  if (+event.target.value > 65535) event.target.value = '65535';
+                  dispatch(setPrivatePort(event.target.value));
+                }}
               />
               <label htmlFor="private_port">{getLocalizedString('privatePort')}</label>
             </div>
+            {errorCreatingContainer && (
+              <label style={{ color: 'red', marginBottom: '10px' }}>{errorCreatingContainer}</label>
+            )}
+
             <button
               className="btn"
               disabled={!imageName}
-              onClick={() => {
-                containerApi
-                  .createContainer(user, {
-                    imageName: imageName,
-                    containerName: containerName,
-                    publicPort: publicPort,
-                    privatePort: privatePort,
-                  })
-                  .then(() => {
-                    getContainers(user);
-                    closeModal();
-                  });
+              onClick={async () => {
+                const result = (await containerApi.createContainer(user, {
+                  imageName: imageName,
+                  containerName: containerName,
+                  publicPort: publicPort,
+                  privatePort: privatePort,
+                })) as any;
+                if (result.error) {
+                  if (result.error.includes('code 409')) return setErrorContainerName(true);
+                  if (result.error.includes('code 400'))
+                    return setErrorCreatingContainer(getLocalizedString('checkPorts'));
+                  return setErrorCreatingContainer(result.error);
+                }
+                getContainers(user);
+                closeModal();
               }}
             >
               {getLocalizedString('create')}

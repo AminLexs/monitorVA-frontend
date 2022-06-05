@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'handlers';
 import { setCurrentContainerID } from 'handlers/containersManager';
-import {containerApi, imageApi} from 'thunks';
+import { containerApi, imageApi } from 'thunks';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from 'api/AccountApi';
 import { useLocale } from 'utils/localeUtils';
-import {searchAsyncSelectOptions} from "utils/selectUtils";
-import {setContainerName, setImageName} from "handlers/createContainerForm";
-import AsyncSelect from "react-select/async";
-
+import { searchAsyncSelectOptions } from 'utils/selectUtils';
+import { setContainerName, setImageName } from 'handlers/createContainerForm';
+import AsyncSelect from 'react-select/async';
 
 const EditContainer = () => {
   const [user] = useAuthState(auth);
@@ -44,58 +43,57 @@ const EditContainer = () => {
 
   return (
     <div>
-      <a className="btn-floating btn-large waves-effect waves-light blue"><i className="material-icons">arrow_back</i></a>
-      <form style={{marginBottom:"20px"}} className="col s16">
-      <div className="row">
-      <div className="input-field col s5">
-        <input
-            name="cpuUsageLimit"
-            id="cpuUsageLimit"
-            type="text"
-            onChange={(event) => dispatch(setContainerName(event.target.value))}
-        />
-        <label htmlFor="cpuUsageLimit">{getLocalizedString('cpuUsageLimit')}</label>
-      </div>
-      <div className="input-field col s5">
-        <input
-            name="memoryUsageLimit"
-            id="memoryUsageLimit"
-            type="text"
-            onChange={(event) => dispatch(setContainerName(event.target.value))}
-        />
-        <label htmlFor="memoryUsageLimit">{getLocalizedString('memoryUsageLimit')}</label>
-      </div>
+      <a className="btn-floating btn-large waves-effect waves-light blue">
+        <i className="material-icons">arrow_back</i>
+      </a>
+      <form style={{ marginBottom: '20px' }} className="col s16">
+        <div className="row">
+          <div className="input-field col s5">
+            <input
+              name="cpuUsageLimit"
+              id="cpuUsageLimit"
+              type="text"
+              onChange={(event) => dispatch(setContainerName(event.target.value))}
+            />
+            <label htmlFor="cpuUsageLimit">{getLocalizedString('cpuUsageLimit')}</label>
+          </div>
+          <div className="input-field col s5">
+            <input
+              name="memoryUsageLimit"
+              id="memoryUsageLimit"
+              type="text"
+              onChange={(event) => dispatch(setContainerName(event.target.value))}
+            />
+            <label htmlFor="memoryUsageLimit">{getLocalizedString('memoryUsageLimit')}</label>
+          </div>
 
-      <div className="input-field col s4">
-        <input
-            name="countRestart"
-            id="countRestart"
-            type="text"
-            onChange={(event) => dispatch(setContainerName(event.target.value))}
-        />
-        <label htmlFor="countRestart">{getLocalizedString('countRestart')}</label>
-      </div>
-
-      </div>
-        <button className="btn">
-          {getLocalizedString('update')}
-        </button>
+          <div className="input-field col s4">
+            <input
+              name="countRestart"
+              id="countRestart"
+              type="text"
+              onChange={(event) => dispatch(setContainerName(event.target.value))}
+            />
+            <label htmlFor="countRestart">{getLocalizedString('countRestart')}</label>
+          </div>
+        </div>
+        <button className="btn">{getLocalizedString('update')}</button>
       </form>
 
-    <form style={{marginBottom:"20px"}} className="col s16">
+      <form style={{ marginBottom: '20px' }} className="col s16">
         <div className="row">
-        <div className="input-field col s6">
-          <input
+          <div className="input-field col s6">
+            <input
               name="container_name"
               id="container_name"
               type="text"
               onChange={(event) => dispatch(setContainerName(event.target.value))}
-          />
-          <label htmlFor="container_name">{getLocalizedString('containerName')}</label>
+            />
+            <label htmlFor="container_name">{getLocalizedString('containerName')}</label>
+          </div>
         </div>
-        </div>
-        <div style={{width:"50%"}}>
-        <AsyncSelect
+        <div style={{ width: '50%' }}>
+          <AsyncSelect
             placeholder={getLocalizedString('chooseImageOrStartWritting')}
             onChange={(event) => {
               dispatch(setImageName(event!.value));
@@ -103,62 +101,59 @@ const EditContainer = () => {
             cacheOptions
             defaultOptions
             loadOptions={loadImagesPromise}
-        />
+          />
         </div>
         <div className="row">
           <div className="input-field col s6">
             <input
-                name="hostname"
-                id="hostname"
-                type="text"
-                onChange={(event) => dispatch(setContainerName(event.target.value))}
+              name="hostname"
+              id="hostname"
+              type="text"
+              onChange={(event) => dispatch(setContainerName(event.target.value))}
             />
             <label htmlFor="hostname">{getLocalizedString('hostname')}</label>
           </div>
           <div className="input-field col s6">
             <input
-                name="domainname"
-                id="domainname"
-                type="text"
-                onChange={(event) => dispatch(setContainerName(event.target.value))}
+              name="domainname"
+              id="domainname"
+              type="text"
+              onChange={(event) => dispatch(setContainerName(event.target.value))}
             />
             <label htmlFor="domainname">{getLocalizedString('domainname')}</label>
           </div>
         </div>
         <div className="input-field col s6">
           <input
-              name="healthCheckCommand"
-              id="healthCheckCommand"
-              type="text"
-              onChange={(event) => dispatch(setContainerName(event.target.value))}
+            name="healthCheckCommand"
+            id="healthCheckCommand"
+            type="text"
+            onChange={(event) => dispatch(setContainerName(event.target.value))}
           />
           <label htmlFor="healthCheckCommand">{getLocalizedString('healthCheckCommand')}</label>
         </div>
         <div className="row">
           <div className="input-field col s3">
             <input
-                name="publicPort"
-                id="publicPort"
-                type="text"
-                onChange={(event) => dispatch(setContainerName(event.target.value))}
+              name="publicPort"
+              id="publicPort"
+              type="text"
+              onChange={(event) => dispatch(setContainerName(event.target.value))}
             />
             <label htmlFor="publicPort">{getLocalizedString('publicPort')}</label>
           </div>
           <div className="input-field col s3">
             <input
-                name="privatePort"
-                id="privatePort"
-                type="text"
-                onChange={(event) => dispatch(setContainerName(event.target.value))}
+              name="privatePort"
+              id="privatePort"
+              type="text"
+              onChange={(event) => dispatch(setContainerName(event.target.value))}
             />
             <label htmlFor="privatePort">{getLocalizedString('privatePort')}</label>
           </div>
         </div>
-        <button className="btn">
-          {getLocalizedString('recreate')}
-        </button>
+        <button className="btn">{getLocalizedString('recreate')}</button>
       </form>
-
     </div>
   );
 };
