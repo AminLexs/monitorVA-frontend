@@ -57,8 +57,10 @@ const UserManager = () => {
                 if (emailCorrect(email) && password.length > 5) {
                   setErrorPassOrEmail('');
                   const result = (await adminApi.CreateUser(user, email, password)) as any;
-                  if (result.error && result.error.includes('The email address is already in use'))
+                  if (result.error && result.error.includes('The email address is already in use')) {
                     setErrorPassOrEmail('thisEmailAlreadyInUse');
+                  }
+                  await getUsers();
                 } else {
                   setErrorPassOrEmail('incorrectEmailOrPass');
                 }
@@ -89,7 +91,7 @@ const UserManager = () => {
               {users &&
                 users.map((systemUser) => {
                   return (
-                    <tr>
+                    <tr id={systemUser.id}>
                       <td>{systemUser.mail}</td>
                       <td>
                         <SimpleSelect

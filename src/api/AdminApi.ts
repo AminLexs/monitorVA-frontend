@@ -1,7 +1,8 @@
 import { accountApi } from 'thunks';
 
-import Api, { FetchMethodType } from './Api';
 import { Role } from 'enums/Role';
+
+import Api, { FetchMethodType } from './Api';
 
 export default class AdminApi extends Api {
   public async GetUsers(user: any) {
@@ -13,6 +14,7 @@ export default class AdminApi extends Api {
       method: FetchMethodType.GET,
     });
   }
+
   public async ChangeUserRole(user: any, uid: string, role: Role) {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();

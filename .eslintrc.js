@@ -3,7 +3,7 @@ module.exports = {
   extends: ['airbnb-typescript', 'prettier'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: './tsconfig.json',
+    project: ['./tsconfig.json'],
     ecmaVersion: 2018,
     sourceType: 'module',
     createDefaultProgram: true,
@@ -11,7 +11,7 @@ module.exports = {
   plugins: ['react', '@typescript-eslint', 'eslint-comments', 'import'],
   overrides: [
     {
-      files: ['**/*.tsx'],
+      files: ['*.ts', '*.tsx'],
       rules: {},
     },
   ],

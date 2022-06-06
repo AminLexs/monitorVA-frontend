@@ -7,9 +7,11 @@ import { RootState } from 'handlers';
 import { Locale } from 'enums/Locale';
 import { setLocale } from 'handlers/ui';
 import { useLocale } from 'utils/localeUtils';
-import { Role } from '../../enums/Role';
+
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../../api/AccountApi';
+
+import { Role } from 'enums/Role';
+import { auth } from 'api/AccountApi';
 
 const Sidebar = () => {
   const [user] = useAuthState(auth);

@@ -96,6 +96,7 @@ const ContainersList = () => {
       label: image.name,
       value: image.name,
     }));
+
     return searchAsyncSelectOptions(inputValue, images);
   };
 
