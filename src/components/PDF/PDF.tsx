@@ -22,9 +22,16 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   sectionGraphics: {
+    marginTop: '20px',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  chart: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: '5px',
   },
   header: {
     fontFamily: 'RobotoBold',
@@ -45,6 +52,9 @@ interface ContainerInfo {
   containerInfo?: any;
   cpuChartURL?: string;
   memoryChartURL?: string;
+  usageMemory?: string;
+  freeMemory?: string;
+  usageCpu?: string;
 }
 
 interface DocumentProps {
@@ -54,60 +64,6 @@ interface DocumentProps {
   getLocalizedString: (key: string) => string;
   stats: any;
 }
-
-// const MOCK_CONTAINERTS_DATA = [
-//   {
-//     name: 'lag',
-//     info:
-//       '\nСостояние\n' +
-//       'Статус: exited\n' +
-//       'PID: 0\n' +
-//       'Запущен в: 2022-05-15T00:24:23.2104558Z\n' +
-//       'Закончил в: 2022-05-15T00:24:33.8092206ZПолитика перезагрузки\n' +
-//       'Политика перезагрузки\n' +
-//       'Количество перезагрузок: 0\n' +
-//       'Среда\n' +
-//       'Платформа: linux\n' +
-//       'Рабочая директория: /usr/src/app\n' +
-//       'Образ: lagservermod\n' +
-//       'Объёмы: null\n' +
-//       'Другое:\n' +
-//       'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\n' +
-//       'NODE_VERSION=12.22.5\n' +
-//       'YARN_VERSION=1.22.5\n' +
-//       'Сеть\n' +
-//       'Публичный порт: 3000/tcp\n' +
-//       'Приватный порт: 600',
-//   },
-//   {
-//     name: 'lagsservmod',
-//     info:
-//       '\nСостояние\n' +
-//       'Статус: exited\n' +
-//       'PID: 0\n' +
-//       'Запущен в: 2022-05-15T00:24:23.2104558Z\n' +
-//       'Закончил в: 2022-05-15T00:24:33.8092206ZПолитика перезагрузки\n' +
-//       'Политика перезагрузки\n' +
-//       'Количество перезагрузок: 0\n' +
-//       'Среда\n' +
-//       'Платформа: linux\n' +
-//       'Рабочая директория: /usr/src/app\n' +
-//       'Образ: lagservermod\n' +
-//       'Объёмы: null\n' +
-//       'Другое:\n' +
-//       'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\n' +
-//       'NODE_VERSION=12.22.5\n' +
-//       'YARN_VERSION=1.22.5\n' +
-//       'Сеть\n' +
-//       'Публичный порт: 3000/tcp\n' +
-//       'Приватный порт: 600',
-//   },
-// ];
-//
-// const MOCK_MEMORY_URL =
-//   'https://image-charts.com/chart.js/2.8.0?chart=%7Btype%3A%27bar%27%2Cdata%3A%7Blabels%3A%5B%27%D0%91%D0%B0%D0%B9%D1%82%27%5D%2Cdatasets%3A%5B%7Blabel%3A%27Used+memory%27%2Cdata%3A%5B400000%5D%7D%2C%7Blabel%3A%27Empty+memory%27%2Cdata%3A%5B2\n' +
-//   '00000%5D%2CbackgroundColor%3A%27%23D3D3D3%27%7D%5D%7D%2Coptions%3A%7Btitle%3A%7Bdisplay%3Atrue%2Ctext%3A%27History+stats%27%7D%2Cresponsive%3Atrue%2Cscales%3A%7BxAxes%3A%5B%7Bstacked%3Atrue%7D%5D%2CyAxes%3A%5B%7Bstacked%3Atrue%2Cticks%3A%7\n' +
-//   'BbeginAtZero%3Atrue%2Cmin%3A0%2Cmax%3A1000000%7D%7D%5D%7D%7D%7D&backgroundColor=white&width=500&height=300';
 
 const getUsefulInformation = (containerInfo: any, getLocalizedString: (key: string) => string) => {
   const result =
@@ -150,14 +106,35 @@ const Document = ({
           <Page key={containerData.name} size="A4" style={styles.page}>
             <View style={styles.section}>
               <Text style={styles.header}>{containerData.name}</Text>
-              <Text style={styles.text}>{getUsefulInformation(containerData.containerInfo, getLocalizedString)}</Text>
+              {containerData.containerInfo && (
+                <Text style={styles.text}>{getUsefulInformation(containerData.containerInfo, getLocalizedString)}</Text>
+              )}
               {(containerData.cpuChartURL || containerData.memoryChartURL) && (
                 <View style={styles.sectionGraphics}>
                   {containerData.cpuChartURL && (
-                    <Image style={{ width: 250, height: 150 }} src={containerData.cpuChartURL} />
+                    <View style={styles.chart}>
+                      <Image style={{ width: 250, height: 150 }} src={containerData.cpuChartURL} />
+                      {containerData.usageMemory && (
+                        <Text style={styles.text}>
+                          {getLocalizedString('cpuUsage') + ': ' + containerData.usageCpu + '%'}
+                        </Text>
+                      )}
+                    </View>
                   )}
                   {containerData.memoryChartURL && (
-                    <Image style={{ width: 250, height: 150 }} src={containerData.memoryChartURL} />
+                    <View style={styles.chart}>
+                      <Image style={{ width: 250, height: 150 }} src={containerData.memoryChartURL} />
+                      {containerData.usageMemory && (
+                        <Text style={styles.text}>
+                          {getLocalizedString('usageMemory') + containerData.usageMemory + getLocalizedString('mb')}
+                        </Text>
+                      )}
+                      {containerData.freeMemory && (
+                        <Text style={styles.text}>
+                          {getLocalizedString('freeMemory') + containerData.freeMemory + getLocalizedString('mb')}
+                        </Text>
+                      )}
+                    </View>
                   )}
                 </View>
               )}

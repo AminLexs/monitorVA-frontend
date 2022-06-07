@@ -144,6 +144,9 @@ enum EnglishLocale {
   delete = 'Delete',
   incorrectEmailOrPass = 'Incorrect email or password',
   thisEmailAlreadyInUse = 'This email already in use',
+  usageMemory = 'Memory usage: ',
+  freeMemory = 'Free memory: ',
+  mb = 'Mb',
 }
 
 enum RussianLocale {
@@ -270,6 +273,9 @@ enum RussianLocale {
   delete = 'Удалить',
   incorrectEmailOrPass = 'Неверная почта или пароль',
   thisEmailAlreadyInUse = 'Эта почта уже используется',
+  usageMemory = 'Использовано памяти: ',
+  freeMemory = 'Свободно памяти: ',
+  mb = 'Мб',
 }
 // Созданных
 // Работающих
