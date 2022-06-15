@@ -121,8 +121,8 @@ enum EnglishLocale {
   registration = 'Registration',
   empty = 'Empty',
   chooseContainerOrStartWritting = 'Choose container or start typing...',
-  cpuUsageLimit = 'CPU usage limit',
-  memoryUsageLimit = 'Memory usage limit',
+  cpuUsageLimit = 'CPU usage limit (number)',
+  memoryUsageLimit = 'Memory usage limit (bytes)',
   countRestart = 'Count restart',
   domainname = 'Domain name',
   hostname = 'Host name',
@@ -147,6 +147,10 @@ enum EnglishLocale {
   usageMemory = 'Memory usage: ',
   freeMemory = 'Free memory: ',
   mb = 'Mb',
+  loadJsonSettings = 'Load JSON settings (auto recreate)',
+  saveJsonSettings = 'Save JSON settings',
+  rename = 'Rename',
+  invDataCheckJSON = 'Invalid data. Check JSON file settings',
 }
 
 enum RussianLocale {
@@ -250,8 +254,8 @@ enum RussianLocale {
   registration = 'Регистрация',
   empty = 'пусто',
   chooseContainerOrStartWritting = 'Выберите контейнер или начните вводить',
-  cpuUsageLimit = 'Относительная нагрузка CPU',
-  memoryUsageLimit = 'Лимит использования памяти',
+  cpuUsageLimit = 'Относительная нагрузка CPU (число)',
+  memoryUsageLimit = 'Лимит использования памяти (байты)',
   countRestart = 'Количество перезапусков',
   domainname = 'Доменное имя',
   hostname = 'Серверное имя',
@@ -276,6 +280,10 @@ enum RussianLocale {
   usageMemory = 'Использовано памяти: ',
   freeMemory = 'Свободно памяти: ',
   mb = 'Мб',
+  loadJsonSettings = 'Загрузить JSON настройки (пересоздание автоматически)',
+  saveJsonSettings = 'Сохранить JSON настройки',
+  rename = 'Переименовать',
+  invDataCheckJSON = 'Некорректные данные. Проверьте JSON файл настроек',
 }
 // Созданных
 // Работающих

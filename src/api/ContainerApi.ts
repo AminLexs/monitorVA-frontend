@@ -1,4 +1,4 @@
-import { accountApi } from 'thunks';
+import { accountApi, API_URL } from 'thunks';
 import { CreateContainerForm } from 'handlers/createContainerForm';
 import { PDFParams } from 'pages/MainMonitorPage/steps/Reporting/Reporting';
 
@@ -13,6 +13,16 @@ export interface ObserverOptions {
   onStop: boolean;
   onRestart: boolean;
   isOn: boolean;
+}
+export interface RestartPolicy {
+  MaximumRetryCount: number;
+  Name: string;
+}
+export interface UpdateParams {
+  CpuShares: number;
+  Memory: number;
+  RestartPolicy: RestartPolicy;
+  MemorySwap: number;
 }
 
 export default class ContainerApi extends Api {
@@ -142,6 +152,17 @@ export default class ContainerApi extends Api {
     });
   }
 
+  public async recreateContainer(user: any, containerId: string, options: any, oldSettings: any) {
+    const token = await accountApi.GetToken(user);
+    const headers = new Headers();
+    headers.set('token', token);
+    return this.fetch(`/container/recreate`, {
+      headers: headers,
+      method: FetchMethodType.POST,
+      body: { containerId: containerId, options: options, oldSettings: oldSettings },
+    });
+  }
+
   public async getPDFsDataContainers(user: any, containersId: Array<string>, pdfParams: PDFParams, lang: string) {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
@@ -172,6 +193,47 @@ export default class ContainerApi extends Api {
     return this.fetch(`/containers/observer`, {
       headers: headers,
       method: FetchMethodType.GET,
+    });
+  }
+
+  public async updateContainer(user: any, containerId: string, updateParams: UpdateParams) {
+    const token = await accountApi.GetToken(user);
+    const headers = new Headers();
+    headers.set('token', token);
+    headers.set('containerId', containerId);
+    return this.fetch(`/container/update`, {
+      headers: headers,
+      method: FetchMethodType.PUT,
+      body: {
+        updateParams: updateParams,
+      },
+    });
+  }
+
+  public async createContainerFromFile(user: any, formData: FormData) {
+    const token = await accountApi.GetToken(user);
+    const headers = new Headers();
+    headers.set('token', token);
+
+    return (
+      await fetch(`${API_URL}/container`, {
+        method: 'POST',
+        body: formData,
+        headers: headers,
+      })
+    ).json();
+  }
+
+  public async renameContainer(user: any, containerId: string, newName: string) {
+    const token = await accountApi.GetToken(user);
+    const headers = new Headers();
+    headers.set('token', token);
+    headers.set('containerId', containerId);
+
+    return this.fetch(`/container/name`, {
+      method: FetchMethodType.PUT,
+      body: { newName: newName },
+      headers: headers,
     });
   }
 }

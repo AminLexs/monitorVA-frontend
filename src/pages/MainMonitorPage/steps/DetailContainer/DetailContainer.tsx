@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDashboardStep } from 'handlers/stages';
 import { DashboardStep } from 'enums/DashboardStep';
 import { RootState } from 'handlers';
-import { setCurrentContainerID } from 'handlers/containersManager';
 import { containerApi } from 'thunks';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from 'api/AccountApi';
@@ -37,9 +36,9 @@ const DetailContainer = () => {
     if (currentContainerID) {
       getContainerData();
     }
-    return () => {
-      dispatch(setCurrentContainerID(null));
-    };
+    // return () => {
+    //   dispatch(setCurrentContainerID(null));
+    // };
   }, [currentContainerID]);
   const handleOpenConsole = () => {
     setConsoleOpen(true);
@@ -79,7 +78,6 @@ const DetailContainer = () => {
   const handleRefreshSettingsObserver = async () => {
     const observeSettings = ((await containerApi.getObserverSettings(user, currentContainerInfo.Id)) as any).data;
     if (observeSettings) {
-      console.log(observeSettings.emails);
       setSelectedEmailForObserve(observeSettings.emails);
       (document.getElementById('eventDestroy') as HTMLInputElement).checked = observeSettings.onDestroy;
       (document.getElementById('eventDie') as HTMLInputElement).checked = observeSettings.onDie;
@@ -176,7 +174,9 @@ const DetailContainer = () => {
                 {getLocalizedString('maximumRetryCount')}
                 {currentContainerInfo.HostConfig.RestartPolicy.MaximumRetryCount}
               </p>
-              <button className="btn">{getLocalizedString('edit')}</button>
+              <button onClick={handleEditClick} className="btn">
+                {getLocalizedString('edit')}
+              </button>
             </li>
             <li className="collection-item avatar">
               <i className="material-icons circle">folder</i>
@@ -210,12 +210,12 @@ const DetailContainer = () => {
                 {' '}
                 {getLocalizedString('publicPort')}
                 {': '}
-                {Object.keys(currentContainerInfo.HostConfig.PortBindings)[0]}
+                {(Object.values(currentContainerInfo.HostConfig.PortBindings)[0] as Array<any>)[0].HostPort}
                 {/*{Object.keys(currentContainerInfo.NetworkSettings.Ports)[0]}*/}
                 <br />
                 {getLocalizedString('privatePort')}
                 {': '}
-                {(Object.values(currentContainerInfo.HostConfig.PortBindings)[0] as Array<any>)[0].HostPort}
+                {Object.keys(currentContainerInfo.HostConfig.PortBindings)[0].split('/')[0]}
                 {/*{(Object.values(currentContainerInfo.NetworkSettings.Ports)[0] as Array<any>)[0].HostPort*/}
                 <br />
               </p>
