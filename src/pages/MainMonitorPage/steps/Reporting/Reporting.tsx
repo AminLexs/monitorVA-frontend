@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PDFViewer } from '@react-pdf/renderer';
+import { BlobProvider, PDFViewer } from '@react-pdf/renderer';
 
 import Document from 'components/PDF/PDF';
 import { containerApi } from 'thunks';
@@ -12,6 +12,7 @@ import { RootState } from 'handlers';
 import { setLoading } from 'handlers/ui';
 import AsyncSelect from 'react-select/async';
 import { searchAsyncSelectOptions } from 'utils/selectUtils';
+import EmailPicker from 'components/EmailPicker';
 
 interface PdfDataProps {
   containersInfo: Array<any>;
@@ -37,6 +38,9 @@ const Reporting = () => {
   const [errorSelected, setErrorSelected] = useState(false);
   const { getLocalizedString, locale } = useLocale();
   const { loading } = useSelector((state: RootState) => state.app.ui);
+  const [selectedEmailForSend, setSelectedEmailForSend] = useState<Array<string>>([]);
+  const [blobPDF, setBlobPDF] = useState<Blob>();
+  const [messageSend, setMessageSend] = useState('');
   const dispatch = useDispatch();
 
   const getPDFData = async (user: any, containersID: Array<string>) => {
@@ -63,9 +67,28 @@ const Reporting = () => {
       label: container.name,
       value: container.Id,
     }));
-    const options = [{ label: 'Select All', value: 'all' }, ...searchAsyncSelectOptions(inputValue, containers)];
+    const options = [
+      { label: getLocalizedString('selectAll'), value: 'all' },
+      ...searchAsyncSelectOptions(inputValue, containers),
+    ];
     setContainersOptions(options);
     return options;
+  };
+
+  const handleSendReport = async () => {
+    if (blobPDF && selectedEmailForSend.length !== 0) {
+      const formData = new FormData();
+      formData.append('pdf', blobPDF);
+      const result = await containerApi.sendReport(user, formData, selectedEmailForSend);
+      if (result.data === 'sent') {
+        setMessageSend(getLocalizedString('successfullySent'));
+      } else {
+        setMessageSend(getLocalizedString('sendError'));
+      }
+      setTimeout(() => {
+        setMessageSend('');
+      }, 5000);
+    }
   };
 
   return (
@@ -147,15 +170,52 @@ const Reporting = () => {
             </>
           ) : null}
           {pdfData ? (
-            <PDFViewer height={'700px'}>
-              <Document
-                containersInfo={pdfData.containersInfo}
-                doughnutChartNowStateURL={pdfData.doughnutChartNowState}
-                barChartHistoryStateStatsURL={pdfData.barChartHistoryStateStatsURL}
-                getLocalizedString={getLocalizedString}
-                stats={pdfData.stats}
-              />
-            </PDFViewer>
+            <>
+              <PDFViewer height={'700px'}>
+                <Document
+                  containersInfo={pdfData.containersInfo}
+                  doughnutChartNowStateURL={pdfData.doughnutChartNowState}
+                  barChartHistoryStateStatsURL={pdfData.barChartHistoryStateStatsURL}
+                  getLocalizedString={getLocalizedString}
+                  stats={pdfData.stats}
+                />
+              </PDFViewer>
+              <BlobProvider
+                document={
+                  <Document
+                    containersInfo={pdfData.containersInfo}
+                    doughnutChartNowStateURL={pdfData.doughnutChartNowState}
+                    barChartHistoryStateStatsURL={pdfData.barChartHistoryStateStatsURL}
+                    getLocalizedString={getLocalizedString}
+                    stats={pdfData.stats}
+                  />
+                }
+              >
+                {({ blob, error }) => {
+                  if (blob) {
+                    setBlobPDF(blob);
+                  }
+
+                  return <div>{error}</div>;
+                }}
+              </BlobProvider>
+              {blobPDF && (
+                <>
+                  <EmailPicker
+                    items={selectedEmailForSend}
+                    setItems={setSelectedEmailForSend}
+                    getLocalizedString={getLocalizedString}
+                    onChange={(items) => {
+                      setSelectedEmailForSend(items);
+                    }}
+                  />
+                  {messageSend && <label style={{ color: 'green' }}>{messageSend}</label>}
+                  <button onClick={handleSendReport} style={{ width: '50%' }} className={'btn'}>
+                    {getLocalizedString('send')}
+                  </button>
+                </>
+              )}
+            </>
           ) : null}
         </div>
       )}

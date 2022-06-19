@@ -151,6 +151,10 @@ enum EnglishLocale {
   saveJsonSettings = 'Save JSON settings',
   rename = 'Rename',
   invDataCheckJSON = 'Invalid data. Check JSON file settings',
+  selectAll = 'Select All',
+  send = 'Send',
+  successfullySent = 'Successfully sent',
+  sendError = 'Send error',
 }
 
 enum RussianLocale {
@@ -284,6 +288,10 @@ enum RussianLocale {
   saveJsonSettings = 'Сохранить JSON настройки',
   rename = 'Переименовать',
   invDataCheckJSON = 'Некорректные данные. Проверьте JSON файл настроек',
+  selectAll = 'Выбрать все',
+  send = 'Отправить',
+  successfullySent = 'Успешно отправлено',
+  sendError = 'Ошибка отправки',
 }
 // Созданных
 // Работающих

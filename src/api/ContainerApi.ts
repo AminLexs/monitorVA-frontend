@@ -236,4 +236,18 @@ export default class ContainerApi extends Api {
       headers: headers,
     });
   }
+
+  public async sendReport(user: any, formData: FormData, emails: string[]) {
+    const token = await accountApi.GetToken(user);
+    const headers = new Headers();
+    headers.set('token', token);
+    headers.set('emails', JSON.stringify(emails));
+    return (
+      await fetch(`${API_URL}/containers/sendreport`, {
+        method: 'POST',
+        body: formData,
+        headers: headers,
+      })
+    ).json();
+  }
 }

@@ -10,6 +10,14 @@ import './index.scss';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
+
+window.addEventListener('error', (event) => {
+  console.log(event.message);
+});
+window.addEventListener('unhandledrejection', (event: PromiseRejectionEvent) => {
+  console.log(event.reason.message);
+});
+
 root.render(
   //<React.StrictMode>
   <Provider store={store}>
