@@ -24,6 +24,7 @@
     "history": "^5.3.0",
     "materialize-css": "^1.0.0-rc.2",
     "moment": "^2.29.3",
+    "moment-duration-format": "^2.3.2",
     "process": "^0.11.10",
     "react": "^18.1.0",
     "react-chartjs-2": "^4.1.0",
@@ -68,6 +69,7 @@
   },
   "devDependencies": {
     "@types/materialize-css": "^1.0.11",
+    "@types/moment-duration-format": "^2.2.3",
     "@types/node": "^16.11.11",
     "@types/react": "^17.0.44",
     "@types/react-dom": "^17.0.16",

@@ -155,6 +155,7 @@ enum EnglishLocale {
   send = 'Send',
   successfullySent = 'Successfully sent',
   sendError = 'Send error',
+  timeOfWork = 'Time of work: ',
 }
 
 enum RussianLocale {
@@ -292,6 +293,7 @@ enum RussianLocale {
   send = 'Отправить',
   successfullySent = 'Успешно отправлено',
   sendError = 'Ошибка отправки',
+  timeOfWork = 'Время работы: ',
 }
 // Созданных
 // Работающих

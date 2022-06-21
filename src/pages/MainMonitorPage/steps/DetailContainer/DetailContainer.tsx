@@ -11,6 +11,8 @@ import ReactConsole from '@webscopeio/react-console';
 import { useLocale } from 'utils/localeUtils';
 import EmailPicker from 'components/EmailPicker';
 import { ObserverOptions } from 'api/ContainerApi';
+import moment from 'moment';
+import 'moment-duration-format';
 
 import styles from './DetailContainer.module.scss';
 
@@ -136,6 +138,15 @@ const DetailContainer = () => {
                 {getLocalizedString('startedAt')}
                 {getDateFromString(currentContainerInfo.State.StartedAt)}
                 <br />
+                {currentContainerInfo.State.Status === 'running' && (
+                  <>
+                    {getLocalizedString('timeOfWork') +
+                      moment
+                        .duration(moment(new Date()).diff(moment(new Date(currentContainerInfo.State.StartedAt))))
+                        .format('hh:mm:ss')}
+                    <br />
+                  </>
+                )}
                 {getLocalizedString('finishedAt')}
                 {getDateFromString(currentContainerInfo.State.FinishedAt)}
                 <br />
