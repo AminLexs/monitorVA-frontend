@@ -30,6 +30,7 @@ export default class ContainerApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/containers`, {
       headers: headers,
       method: FetchMethodType.PUT,
@@ -41,6 +42,7 @@ export default class ContainerApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/containers`, {
       headers: headers,
     });
@@ -50,6 +52,7 @@ export default class ContainerApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/containers/monit`, {
       headers: headers,
       method: FetchMethodType.POST,
@@ -61,6 +64,7 @@ export default class ContainerApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/containers/start`, {
       headers: headers,
       method: FetchMethodType.POST,
@@ -72,6 +76,7 @@ export default class ContainerApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/containers/stop`, {
       headers: headers,
       method: FetchMethodType.POST,
@@ -83,6 +88,7 @@ export default class ContainerApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/containers`, {
       headers: headers,
       method: FetchMethodType.DELETE,
@@ -94,6 +100,7 @@ export default class ContainerApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/containers/restart`, {
       headers: headers,
       method: FetchMethodType.POST,
@@ -105,6 +112,7 @@ export default class ContainerApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/containers/pause`, {
       headers: headers,
       method: FetchMethodType.POST,
@@ -116,6 +124,7 @@ export default class ContainerApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/containers/unpause`, {
       headers: headers,
       method: FetchMethodType.POST,
@@ -127,6 +136,7 @@ export default class ContainerApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/container/?containerID=${containerId}`, {
       headers: headers,
     });
@@ -136,6 +146,7 @@ export default class ContainerApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/container/logs/?containerID=${containerId}`, {
       headers: headers,
     });
@@ -145,6 +156,7 @@ export default class ContainerApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/container/exec`, {
       headers: headers,
       method: FetchMethodType.POST,
@@ -156,6 +168,7 @@ export default class ContainerApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/container/recreate`, {
       headers: headers,
       method: FetchMethodType.POST,
@@ -167,6 +180,7 @@ export default class ContainerApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/containers/pdf`, {
       headers: headers,
       method: FetchMethodType.POST,
@@ -178,6 +192,7 @@ export default class ContainerApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/containers/observers`, {
       headers: headers,
       method: FetchMethodType.PUT,
@@ -190,6 +205,7 @@ export default class ContainerApi extends Api {
     const headers = new Headers();
     headers.set('token', token);
     headers.set('containerId', containerId);
+
     return this.fetch(`/containers/observer`, {
       headers: headers,
       method: FetchMethodType.GET,
@@ -201,6 +217,7 @@ export default class ContainerApi extends Api {
     const headers = new Headers();
     headers.set('token', token);
     headers.set('containerId', containerId);
+
     return this.fetch(`/container/update`, {
       headers: headers,
       method: FetchMethodType.PUT,
@@ -242,6 +259,7 @@ export default class ContainerApi extends Api {
     const headers = new Headers();
     headers.set('token', token);
     headers.set('emails', JSON.stringify(emails));
+
     return (
       await fetch(`${API_URL}/containers/sendreport`, {
         method: 'POST',

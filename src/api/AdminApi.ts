@@ -2,13 +2,16 @@ import { accountApi } from 'thunks';
 
 import { Role } from 'enums/Role';
 
+import { User } from 'firebase/auth';
+
 import Api, { FetchMethodType } from './Api';
 
 export default class AdminApi extends Api {
-  public async GetUsers(user: any) {
+  public async GetUsers(user: User) {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/users`, {
       headers: headers,
       method: FetchMethodType.GET,
@@ -19,6 +22,7 @@ export default class AdminApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/user`, {
       headers: headers,
       method: FetchMethodType.PUT,
@@ -33,6 +37,7 @@ export default class AdminApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/user`, {
       headers: headers,
       method: FetchMethodType.POST,
@@ -47,6 +52,7 @@ export default class AdminApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/user`, {
       headers: headers,
       method: FetchMethodType.DELETE,
@@ -60,6 +66,7 @@ export default class AdminApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/user/role`, {
       headers: headers,
       method: FetchMethodType.GET,

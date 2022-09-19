@@ -8,6 +8,7 @@ export default class ImageApi extends Api {
     const headers = new Headers();
     headers.set('token', token);
     headers.set('imageName', imageName);
+
     return (
       await fetch(`${API_URL}/images`, {
         method: 'POST',
@@ -21,6 +22,7 @@ export default class ImageApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/images`, {
       headers: headers,
     });
@@ -30,6 +32,7 @@ export default class ImageApi extends Api {
     const token = await accountApi.GetToken(user);
     const headers = new Headers();
     headers.set('token', token);
+
     return this.fetch(`/images`, {
       headers: headers,
       method: FetchMethodType.DELETE,
@@ -42,6 +45,7 @@ export default class ImageApi extends Api {
     const headers = new Headers();
     headers.set('token', token);
     headers.set('imageName', imageName);
+
     return this.fetch(`/images/checkname`, {
       headers: headers,
       method: FetchMethodType.GET,

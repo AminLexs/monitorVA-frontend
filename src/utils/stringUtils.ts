@@ -6,7 +6,7 @@ export const getDateFromString = (date: string) => {
   return new Date(date).toLocaleString();
 };
 
-export const emailCorrect = (email: string) => {
+export const validateEmail = (email: string) => {
   return email
     .toLowerCase()
     .match(

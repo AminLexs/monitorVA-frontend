@@ -6,14 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setSidebar } from 'handlers/ui';
 import { setUser } from 'handlers/auth';
-import { emailCorrect } from 'utils/stringUtils';
+import { validateEmail } from 'utils/stringUtils';
 
 const passwordCorrect = (password: string) => {
   return password.length > 5;
 };
 
 const formIsRight = (email: string, password: string) => {
-  return emailCorrect(email) && passwordCorrect(password);
+  return validateEmail(email) && passwordCorrect(password);
 };
 
 const AuthPage = () => {
@@ -52,7 +52,7 @@ const AuthPage = () => {
               }}
               required
             />
-            {isSubmit && !emailCorrect(email) && (
+            {isSubmit && !validateEmail(email) && (
               <label style={{ color: 'red' }}>Введите корректную электронную почту</label>
             )}
           </div>

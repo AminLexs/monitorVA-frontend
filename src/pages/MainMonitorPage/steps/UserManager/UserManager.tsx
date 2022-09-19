@@ -11,7 +11,7 @@ import { auth } from 'api/AccountApi';
 import { RootState } from 'handlers';
 import { useSelector } from 'react-redux';
 import Loading from 'components/Loading';
-import { emailCorrect } from 'utils/stringUtils';
+import { validateEmail } from 'utils/stringUtils';
 
 import styles from './UserManager.module.scss';
 
@@ -24,7 +24,9 @@ const UserManager = () => {
   const { loading } = useSelector((state: RootState) => state.app.ui);
 
   const getUsers = async () => {
-    setUsers(((await adminApi.GetUsers(user)) as any).data);
+    if (user) {
+      setUsers(((await adminApi.GetUsers(user)) as any).data);
+    }
   };
 
   useEffect(() => {
@@ -54,7 +56,7 @@ const UserManager = () => {
               onClick={async () => {
                 const email = (document.getElementById('emailInput') as HTMLInputElement).value;
                 const password = (document.getElementById('passwordInput') as HTMLInputElement).value;
-                if (emailCorrect(email) && password.length > 5) {
+                if (validateEmail(email) && password.length > 5) {
                   setErrorPassOrEmail('');
                   const result = (await adminApi.CreateUser(user, email, password)) as any;
                   if (result.error && result.error.includes('The email address is already in use')) {
