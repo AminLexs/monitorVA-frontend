@@ -5,7 +5,7 @@ This is web application for monitoring server docker containers (Client).
 2) npm start
 
 ## WORK EXAMPLES
-Containers list with information
+### Containers list with information
 
 Immediately after logging in, the user can see a list of containers and a control panel.
 
