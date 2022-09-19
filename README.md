@@ -10,6 +10,7 @@ Immediately after logging in, the user can see a list of containers and a contro
 This page is also available in the menu "Containers" ⟶ "List"
 To search for containers, you can enter the name of the container and/or use sorting by parameter.
 To change the states of the container, the buttons "Start container", "Stop container", "Restart container", "Pause container", "Resume container" are available. To add a container, there is a button "Add container", to remove - "Delete container".
+
 ![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img.png)
 
 Monitoring using realtime charts
