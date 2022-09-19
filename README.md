@@ -1,7 +1,8 @@
 # MonitorVA
 This is web application for monitoring server docker containers (Client).
 ## Setup
-1) 
+1) Define backend API URL and Firebase credentials
+2) npm start
 
 ## WORK EXAMPLES
 Containers list with information
