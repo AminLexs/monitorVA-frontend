@@ -1,46 +1,97 @@
-# Getting Started with Create React App
+# MonitorVA
+This is web application for monitoring server docker containers (Client).
+## Setup
+1) Define backend API URL and Firebase credentials
+2) npm start
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## WORK EXAMPLES
+### Containers list with information
 
-## Available Scripts
+Immediately after logging in, the user can see a list of containers and a control panel.
 
-In the project directory, you can run:
+This page is also available in the menu "Containers" ⟶ "List"
 
-### `npm start`
+To search for containers, you can enter the name of the container and/or use sorting by parameter.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+To change the states of the container, the buttons "Start container", "Stop container", "Restart container", "Pause container", "Resume container" are available. To add a container, there is a button "Add container", to remove - "Delete container".
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+After clicking on the "Add container" button, a window with a form for creating a container will appear.
 
-### `npm test`
+![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Monitoring using realtime charts
 
-### `npm run build`
+In the menu tab "Containers" ⟶ "Monitoring" graphs of CPU and RAM usage for running containers are available
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_1.png)
+![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_2.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Detail information about container
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+When you click on a container row, a page with detailed information about the container appears in the list.
 
-### `npm run eject`
+The page shows several sections: Status, Restart Policy, Environment, Network, Notification.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Depending on whether the container is running or not, the button to open the container console will be available.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+There is also a button on the page to open container logs.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+In the notifications section, you can enter emails and select the states in which messages will be sent to the entered emails.
+You can also toggle the notification "off-on" here.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_3.png)
 
-## Learn More
+### Edit container settings
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+In the edit section there is a button that, when clicked, opens a page for changing container parameters.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The Relative CPU Load, Used Memory Limit, and Number of Restarts fields can be applied to a container all at once. 
+
+The remaining fields (container name, image name, domain name, etc.) will require the container to be recreated. If the relevant information is present in the container, it will be displayed in the fields.
+
+Application/recreation of the container occurs when you click the "Update" and "Recreate" buttons. You can use the blue back button to go to the detailed information page.
+
+![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_5.png)
+
+### Email message example
+![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_9.png)
+
+### Container logs
+![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_6.png)
+
+### Container console
+![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_7.png)
+
+### Images list with information
+
+On the images page, which is available from the Images menu ⟶ List, you can see the list and control panel of images.
+
+The interaction with the image list is the same as on the container list page, except for opening detailed information.
+
+After clicking on the "Add image" button, a modal window will appear with a form for creating a container image
+
+![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_4.png)
+
+### Settings of report
+
+In the menu tab “Reporting” ⟶ “Report”, a page for selecting containers and parameters for the report is available
+
+After clicking on the "Create" button, a report will be created with the selected containers.
+
+![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_10.png)
+
+### Example of report
+![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_11.png)
+![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_12.png)
+
+### User management
+
+In the menu tab "Users" ⟶ "Management" there is a page for registering, changing user roles and deleting.
+
+This page is available only to administrators.
+
+![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_8.png)
+
+### Localization 
+
+Localization is available in Russian and English.
