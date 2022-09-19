@@ -15,6 +15,8 @@ To search for containers, you can enter the name of the container and/or use sor
 
 To change the states of the container, the buttons "Start container", "Stop container", "Restart container", "Pause container", "Resume container" are available. To add a container, there is a button "Add container", to remove - "Delete container".
 
+After clicking on the "Add container" button, a window with a form for creating a container will appear.
+
 ![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img.png)
 
 ### Monitoring using realtime charts
@@ -61,6 +63,13 @@ Application/recreation of the container occurs when you click the "Update" and "
 ![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_7.png)
 
 ### Images list with information
+
+On the images page, which is available from the Images menu ⟶ List, you can see the list and control panel of images.
+
+The interaction with the image list is the same as on the container list page, except for opening detailed information.
+
+After clicking on the "Add image" button, a modal window will appear with a form for creating a container image
+
 ![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_4.png)
 
 ### Settings of report
