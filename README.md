@@ -54,12 +54,21 @@ Application/recreation of the container occurs when you click the "Update" and "
 ![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_5.png)
 
 ### Email message example
+
+The message is dynamic and depends on the state the container has entered.
+
 ![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_9.png)
 
 ### Container logs
+
+Shows container logs that have been saved by Docker.
+
 ![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_6.png)
 
 ### Container console
+
+Commands are executed inside a container. Command example: date.
+
 ![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_7.png)
 
 ### Images list with information
@@ -81,6 +90,15 @@ After clicking on the "Create" button, a report will be created with the selecte
 ![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_10.png)
 
 ### Example of report
+
+The report is provided as a PDF file.
+
+The user cannot create a report on data outside of his access.
+
+The user can specify a list of mail recipients of the report, as well as specify the text of the message
+
+Useful information in reports: detail container's information, chart used containers resource, chart history containers states, chart current containers states.
+
 ![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_11.png)
 ![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_12.png)
 
