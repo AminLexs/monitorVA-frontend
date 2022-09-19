@@ -92,4 +92,4 @@ This page is available only to administrators.
 
 ![Alt text](https://github.com/AminLexs/monitorVA-frontend/blob/master/screenshots/img_8.png)
 
-
+### Localization is available in Russian and English.
